@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main">
-    <com.example.an.gameengine_adk.Engine.Canvas._Canvas
+    tools:context=".Main"
+    android:background="#ffffff">
+
+    <com.an.gameengine_adk.Engine.Canvas.__Canvas
         android:id="@+id/customView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-
-</LinearLayout>
+</FrameLayout>
