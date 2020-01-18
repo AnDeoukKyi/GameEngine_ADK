@@ -47,8 +47,16 @@ public class __Draw {
             case 1:
                 if (sprite.__getSprite() == null){
                     //sprite생성해야됨
+                    sprite.createSprite();
                 }
-                canvas.drawBitmap(sprite.sprite, null, new Rect(600, 400, 800, 800), null);
+                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(600, 450, 800, 650), null);
+                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(800, 450, 1000, 650), null);
+                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(1000, 450, 1200, 650), null);
+                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(1200, 450, 1400, 650), null);
+                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(500, 500, 700, 700), null);
+                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(700, 500, 900, 700), null);
+                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(900, 500, 1100, 700), null);
+                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(1100, 500, 1300, 700), null);
                 break;
         }
     }

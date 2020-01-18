@@ -13,7 +13,7 @@ public class Sprite {
     private String file;
     private double speed;
     private int index;
-    public Bitmap sprite;
+    private Bitmap sprite;
     private __Engine __engine;
 
 

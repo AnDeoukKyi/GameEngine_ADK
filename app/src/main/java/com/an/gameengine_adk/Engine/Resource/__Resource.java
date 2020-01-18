@@ -70,6 +70,8 @@ public class __Resource {
             }
         }
         ArrayList<String> file = tree.__searchFile(fileName, startIndex, endIndex);
+        if(startIndex == -1)
+            file.set(0, path + "/" +file.get(0));
         if(file == null){
             if(startIndex == -1)
                 Log.e("Resource", path +"에 " + fileName + "파일이 존재하지 않습니다.");
