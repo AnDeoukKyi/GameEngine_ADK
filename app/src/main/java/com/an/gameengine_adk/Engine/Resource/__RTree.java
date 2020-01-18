@@ -23,9 +23,14 @@ public class __RTree {
         ArrayList<String> f = null;
         for(int i = 0; i<__file.size(); i++){
             String[] str = __file.get(i).split("\\.");
-            if(str[0].length() == fileName.length())
-                return null;
-            if((str[0].substring(0, fileName.length())).equals(fileName)){
+            if(startIndex == -1){
+                if(str[0].equals(fileName)){
+                    f = new ArrayList<>();
+                    f.add(__file.get(i));
+                    return f;
+                }
+            }
+            else if((str[0].substring(0, fileName.length())).equals(fileName)){
                 //앞부분은 일치함
                 //뒷부분이 문자일수도있고 숫자일수도있음
                 try{

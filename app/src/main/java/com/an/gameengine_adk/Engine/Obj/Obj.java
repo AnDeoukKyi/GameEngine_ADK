@@ -4,9 +4,12 @@ package com.an.gameengine_adk.Engine.Obj;
 
 
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.util.Log;
 
 import com.an.gameengine_adk.Engine.Obj.Draw.Sprite;
+import com.an.gameengine_adk.Engine.Obj.Draw.SpriteGroup;
+import com.an.gameengine_adk.Engine.Obj.Draw.__Draw;
 import com.an.gameengine_adk.Engine.Obj.Draw.__DrawManager;
 import com.an.gameengine_adk.Engine.Resource.__Resource;
 import com.an.gameengine_adk.Engine.__Engine;
@@ -65,16 +68,7 @@ public class Obj {
 
     public Sprite spr;
 
-
-
-    protected void f_DrawSprite(){
-    //String name, int image, double speed, int index, Point point
-        if (__drawManager == null)
-            __drawManager = new __DrawManager();
-
-//        __Draw draw = new __Draw(name);
-
-//        Bitmap b = null;
+//    Bitmap b = null;
 //        try {
 //            AssetManager assetManager = __engine.context.getResources().getAssets();
 //            InputStream inputStream = assetManager.open("sprite/33.jpg");
@@ -85,19 +79,30 @@ public class Obj {
 //            e.printStackTrace();
 //        }
 
-//        __drawManager.__add(__draw);
 
 
-        /*
-        name, sprite, speed, index, rect(width, height)비율로 줄임
-        name, sprite, speed, index, point(x, y) (width, height)고정임
 
-        (x, y, width, height), sprite, name, speed, index(시작)
-        =>rect클래스
+    protected __Draw f_DrawSprite(String tag, String path, double speed, int index, Point point){
+        String file = resource.__createSprite(path);//return String
+        if (file == null)
+            return null;
+        if (__drawManager == null)
+            __drawManager = new __DrawManager();
 
-         */
+        __Draw draw = new __Draw(tag);
+        draw.__setSprite(__engine, file, speed, index);
+        draw.__setPoint(point);
 
+        __drawManager.__add(draw);
+        return draw;
     }
+
+
+
+    public SpriteGroup f_SpriteGroup(String tag, String path, String fileName, int startIndex, int endIndex){
+        return resource.__createSpriteGroup(tag, path, fileName, startIndex, endIndex);
+    }
+
 
 
 

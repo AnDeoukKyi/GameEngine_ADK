@@ -35,6 +35,9 @@ public class __Engine {
         __objManager.__draw(canvas);
     }
 
+    public Context __getContext() {
+        return context;
+    }
 
     public __Resource __get_resource() {
         return __resource;

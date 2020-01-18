@@ -30,27 +30,35 @@ public class __Resource {
 
 
 
-    public void f_SpriteGroup(String tag, String path, String fileName, int startIndex, int endIndex){
-        SpriteGroup sg = new SpriteGroup(path, fileName, startIndex, endIndex);
-        sg.resource = this;
-        if (tag.equals(""))
-            tag = path + "/" + fileName+ "/"  + startIndex+ "/"  + endIndex;
-        ArrayList<String> file = searchRTree(path, fileName, startIndex, endIndex);
-        if (file == null){
-            Log.e("Resource", "파일을 찾지못해 " + tag + "SpriteGroup을 생성하지 못했습니다.");
-            return;
-        }
-
-
-
-        if(hash.containsKey(tag))
-            Log.e("Resource", tag + "이름의 " + "SpriteGroup이 있습니다.");
-
-        hash.put(tag, sg);
+    public String __createSprite(String path){
+        String[] str = path.split("/");
+        ArrayList<String> file = __searchRTree(path.substring(0, path.length() - str[str.length - 1].length() - 1), str[str.length - 1], -1 ,-1);
+        if(file == null)
+            return null;
+        else
+            return file.get(0);
     }
 
 
-    private ArrayList<String> searchRTree(String path, String fileName, int startIndex, int endIndex){
+    public SpriteGroup __createSpriteGroup(String tag, String path, String fileName, int startIndex, int endIndex){
+        if (tag.equals(""))
+            tag = path + "/" + fileName+ "/"  + startIndex+ "/"  + endIndex;
+        ArrayList<String> file = __searchRTree(path, fileName, startIndex, endIndex);
+        if (file == null){
+            Log.e("Resource", "파일을 찾지못해 " + tag + "SpriteGroup을 생성하지 못했습니다.");
+            return null;
+        }
+        if(hash.containsKey(tag))
+            Log.e("Resource", tag + "이름의 " + "SpriteGroup이 있습니다.");
+        SpriteGroup sg = new SpriteGroup(path, fileName, startIndex, endIndex);
+        sg.__setResource(this);
+        sg.__setSpriteName(file);
+        hash.put(tag, sg);
+        return sg;
+    }
+
+
+    private ArrayList<String> __searchRTree(String path, String fileName, int startIndex, int endIndex){
         //성공시 true반환
         String[] dir = path.split("/");
         __RTree tree = __rTree;
@@ -63,7 +71,10 @@ public class __Resource {
         }
         ArrayList<String> file = tree.__searchFile(fileName, startIndex, endIndex);
         if(file == null){
-            Log.e("Resource", path +"에 " + fileName + startIndex +"와 " +fileName + endIndex + "사이의 파일이 존재하지 않습니다.");
+            if(startIndex == -1)
+                Log.e("Resource", path +"에 " + fileName + "파일이 존재하지 않습니다.");
+            else
+                Log.e("Resource", path +"에 " + fileName + "+(" + startIndex +"~" + endIndex + ") 사이의 파일이 존재하지 않습니다.");
             return null;
         }
         return file;

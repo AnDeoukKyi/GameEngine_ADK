@@ -7,32 +7,27 @@ import java.util.ArrayList;
 
 public class SpriteGroup {
 
-    public ArrayList<Sprite> group11 = new ArrayList<>();
-    public ArrayList<String> group = new ArrayList<>();
-    public __Resource resource;
-
+    public ArrayList<String> spriteName = new ArrayList<>();
+    private  __Resource resource;
 
     private String path;
     private String name;
     private int startInex;
     private int endIndex;
 
+
     public SpriteGroup(String path, String name, int startIndex, int endIndex) {
-        /*
-        경로, 이름, 시작인덱스, 종료인덱스
-
-
-
-         */
-
-        resource = __Engine.__getEngine().__get_resource();
         this.path = path;
         this.name = name;
         this.startInex = startIndex;
         this.endIndex = endIndex;
-
     }
 
+    public void __setSpriteName(ArrayList<String> spriteName) {
+        this.spriteName = spriteName;
+    }
 
-
+    public void __setResource(__Resource resource) {
+        this.resource = resource;
+    }
 }
