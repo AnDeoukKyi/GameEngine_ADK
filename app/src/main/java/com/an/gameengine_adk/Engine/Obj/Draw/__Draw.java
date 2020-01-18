@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-import com.an.gameengine_adk.Engine.Resource.__Resource;
 import com.an.gameengine_adk.Engine.__Engine;
 
 public class __Draw {
@@ -13,18 +12,24 @@ public class __Draw {
     public String name;
 
     public int __drawType = 0;
-    public Sprite sprite = null;//drawType = 1;
+    public Sprite __sprite = null;//drawType = 1;
 
 
 
     Point start;
     Rect rect;
 
+
+
+
     public __Draw(String name) {
         this.name = name;
     }
 
 
+    public void __setRect(Rect rect){
+        this.rect = rect;
+    }
 
     public void __setPoint(Point point){
         this.start = point;
@@ -32,8 +37,8 @@ public class __Draw {
 
     public Sprite __setSprite(__Engine engine, String file, double speed, int index){
         __drawType = 1;
-        sprite = new Sprite(engine, file, speed, index);
-        return sprite;
+        __sprite = new Sprite(engine, file, speed, index);
+        return __sprite;
     }
 
 
@@ -43,20 +48,25 @@ public class __Draw {
 
 
     public void __draw(Canvas canvas){
+        Rect rect;
+        if(this.rect == null){
+            rect = new Rect();
+            rect.left = this.start.x;
+            rect.top = this.start.y;
+        }
+        else
+            rect = this.rect;
         switch(__drawType){
             case 1:
-                if (sprite.__getSprite() == null){
+                if (__sprite.__getSprite() == null){
                     //sprite생성해야됨
-                    sprite.createSprite();
+                    __sprite.__createSprite();
                 }
-                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(600, 450, 800, 650), null);
-                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(800, 450, 1000, 650), null);
-                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(1000, 450, 1200, 650), null);
-                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(1200, 450, 1400, 650), null);
-                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(500, 500, 700, 700), null);
-                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(700, 500, 900, 700), null);
-                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(900, 500, 1100, 700), null);
-                canvas.drawBitmap(sprite.__getSprite(), null, new Rect(1100, 500, 1300, 700), null);
+                if(this.rect == null) {
+                    rect.right = rect.left + __sprite.__getSprite().getWidth();
+                    rect.bottom = rect.top + __sprite.__getSprite().getHeight();
+                }
+                canvas.drawBitmap(__sprite.__getSprite(), null, rect, null);
                 break;
         }
     }

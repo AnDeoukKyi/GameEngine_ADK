@@ -5,6 +5,7 @@ package com.an.gameengine_adk.Engine.Obj;
 
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.util.Log;
 
 import com.an.gameengine_adk.Engine.Obj.Draw.Sprite;
@@ -71,7 +72,7 @@ public class Obj {
 //    Bitmap b = null;
 //        try {
 //            AssetManager assetManager = __engine.context.getResources().getAssets();
-//            InputStream inputStream = assetManager.open("sprite/33.jpg");
+//            InputStream inputStream = assetManager.open("__sprite/33.jpg");
 //            b = BitmapFactory.decodeStream(inputStream);
 //            spr = new Sprite(b);
 //            inputStream.close();
@@ -80,6 +81,23 @@ public class Obj {
 //        }
 
 
+
+
+
+    protected __Draw f_DrawSprite(String tag, String path, double speed, int index, Rect rect){
+        String file = resource.__createSprite(path);//return String
+        if (file == null)
+            return null;
+        if (__drawManager == null)
+            __drawManager = new __DrawManager();
+
+        __Draw draw = new __Draw(tag);
+        draw.__setSprite(__engine, file, speed, index);
+        draw.__setRect(rect);
+
+        __drawManager.__add(draw);
+        return draw;
+    }
 
 
     protected __Draw f_DrawSprite(String tag, String path, double speed, int index, Point point){

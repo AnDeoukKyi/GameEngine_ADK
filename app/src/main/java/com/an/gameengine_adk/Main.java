@@ -36,7 +36,7 @@ public class Main extends AppCompatActivity {
 //        try {
 //            ImageView iv = (ImageView)findViewById(R.id.iv);
 //            AssetManager assetManager = getResources().getAssets();
-//            InputStream inputStream = assetManager.open("sprite/33.jpg");
+//            InputStream inputStream = assetManager.open("__sprite/33.jpg");
 //            iv.setImageDrawable(Drawable.createFromStream(inputStream, null));
 //            inputStream.close();
 //        } catch (IOException e) {
