@@ -17,7 +17,7 @@ public class Monster1 extends Obj {
 //        f_DrawSprite("pic", "__sprite/tile", 1, 0, new Rect(200, 200, 400, 400));
 
         f_DrawSprite("pic", "sprite/background1", 1, 0, new Rect(0, 0, 1920, 1080));
-
+//
         int[][]tile = new int[5][5];
         for(int i = 0; i<tile.length; i++){
             for(int j = 0; j<tile[0].length; j++){
