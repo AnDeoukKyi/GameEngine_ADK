@@ -28,6 +28,20 @@ public class __Engine {
         this.context = context;
         __resource = new __Resource(context);
 
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    try {
+                        __objManager.__spriteIndexing();
+                        Thread.sleep(100);
+                    } catch (Throwable t) {
+                    }
+                }
+            }
+        }).start();
+
+
+
     }
 
 

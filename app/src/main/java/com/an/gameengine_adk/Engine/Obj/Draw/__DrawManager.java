@@ -20,6 +20,11 @@ public class __DrawManager {
     }
 
 
+    public void __spriteIndexing(){
+        for(int i = 0; i<__list_draw.size(); i++)
+            __list_draw.get(i).__spriteIndexing();
+    }
+
 
     public void __add(__Draw draw){
         __list_draw.add(draw);

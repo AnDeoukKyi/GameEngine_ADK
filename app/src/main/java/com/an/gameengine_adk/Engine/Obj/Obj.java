@@ -61,38 +61,28 @@ public class Obj {
 
 
 
-//    Bitmap b = null;
-//        try {
-//            AssetManager assetManager = __engine.context.getResources().getAssets();
-//            InputStream inputStream = assetManager.open("__sprite/33.jpg");
-//            b = BitmapFactory.decodeStream(inputStream);
-//            spr = new Sprite(b);
-//            inputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
 
 
-//    protected __Draw f_DrawSprite(String name, SpriteGroup sg, double speed, int index, Rect rect){
-//        if (__drawManager == null)
-//            __drawManager = new __DrawManager();
-//
-//        __Draw draw = new __Draw(name, this);
-//        draw.__setSprite(__engine, sg, speed, index);
-//        draw.__setRect(rect);
-//
-//        __drawManager.__add(draw);
-//        return draw;
-//    }
+    protected __Draw f_DrawSprite(String name, SpriteGroup sg, double speed, int index, Rect rect){
+        if (__drawManager == null)
+            __drawManager = new __DrawManager();
+
+        __Draw draw = new __Draw(name, this);
+        draw.__setSpriteGroup(sg, speed, index);
+        draw.__setRect(rect);
+
+        __drawManager.__add(draw);
+        return draw;
+    }
 
 
     //1. String path를 주는경우와
     //2. 아예 Sprite를 만들어서 주는경우가 있음
 
     protected __Draw f_DrawSprite(String name, String path, double speed, int index, Rect rect){
-        String file = resource.__checkFile(path);//return String
-        if (file == null)
+        String _path = resource.__checkFile(path);//return String
+        if (_path == null)
             return null;
         if (__drawManager == null)
             __drawManager = new __DrawManager();
@@ -137,8 +127,12 @@ public class Obj {
 
 
 
-    public SpriteGroup f_SpriteGroup(String tag, String path, String fileName, int startIndex, int endIndex){
-        return resource.__createSpriteGroup(tag, path, fileName, startIndex, endIndex);
+
+    public void __spriteIndexing(){
+        if (__child != null)
+            __child.__spriteIndexing();
+        if(__drawManager != null)
+            __drawManager.__spriteIndexing();
     }
 
 

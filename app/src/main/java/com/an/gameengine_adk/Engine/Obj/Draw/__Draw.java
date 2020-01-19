@@ -13,7 +13,8 @@ public class __Draw {
     public String name;
 
     public int __drawType = 0;
-    public Sprite __sprite = null;//drawType = 1;
+    public Sprite __sprite;//drawType = 1;
+    public SpriteGroup __spriteGroup;//drawType = 2;
 
 
 
@@ -22,11 +23,11 @@ public class __Draw {
 
 
     private Obj __obj;
-    private String path;
     private double speed;
     private int index;
-    private String tag = "";
 
+    private String __path;
+    private String __tag;
 
 
     public __Draw(String name, Obj obj) {
@@ -45,32 +46,48 @@ public class __Draw {
 
 
 
-//1
-    public Sprite __setSprite(String path, double speed, int index){
+
+
+
+    //-------------------------------------------------------------------------------------
+    public void __setSprite(String path, double speed, int index){
         __drawType = 1;
-        this.path = path;
+        __path = path;
         this.speed = speed;
         this.index = index;
         __sprite = new Sprite(path);
-        return __sprite;
     }
-//2
-    public Sprite __setSprite(Sprite sprite, double speed, int index){
+
+    public void __setSprite(Sprite sprite, double speed, int index){
         __drawType = 1;
+        if(sprite.__get_path() == null)
+            __tag = sprite.__get_tag();
+        else
+            __path = sprite.__get_path();
         this.speed = speed;
         this.index = index;
-        path = sprite.__get_path();
         __sprite = sprite;
-        return __sprite;
     }
 
+    public void __setSpriteGroup(SpriteGroup sg, double speed, int index){
+        __drawType = 2;
+        this.speed = speed;
+        this.index = index;
+        __spriteGroup = sg;
+    }
 
-//    public Sprite __setSprite(__Engine engine, SpriteGroup sg, double speed, int index){
-//        __drawType = 1;
-//        __sprite = new Sprite(engine, sg.getPath() + "/" + sg.__getSpriteName().get(0), speed, index);
-//        return __sprite;
-//    }
+    //-----------------------------------------------------------------------------
 
+
+
+
+    public void __spriteIndexing(){
+        if(__spriteGroup != null){
+            index++;
+            if(index >= __spriteGroup.__size())
+                index = 0;
+        }
+    }
 
 
 
@@ -86,9 +103,13 @@ public class __Draw {
             rect = this.rect;
         switch(__drawType){
             case 1:
-                if (__sprite == null){
-                    //sprite생성해야됨
-                    __sprite = __obj.__get_engine().__get_resource().__getSprite(tag, path);
+                if (__sprite.__get_sprite() == null){
+                    String str;
+                    if(__tag == null)
+                        str = __path;
+                    else
+                        str = __tag;
+//                    __sprite = __obj.__get_engine().__get_resource().__getSprite(str);
                 }
                 if(this.rect == null) {
                     rect.right = rect.left + __sprite.__get_sprite().getWidth();
@@ -99,6 +120,13 @@ public class __Draw {
                     return;
                 }
                 canvas.drawBitmap(__sprite.__get_sprite(), null, rect, null);
+                break;
+            case 2:
+                if(this.rect == null) {
+                    rect.right = rect.left + __spriteGroup.__getSprite(index).__get_sprite().getWidth();
+                    rect.bottom = rect.top + __spriteGroup.__getSprite(index).__get_sprite().getHeight();
+                }
+                canvas.drawBitmap(__spriteGroup.__getSprite(index).__get_sprite(), null, rect, null);
                 break;
         }
     }

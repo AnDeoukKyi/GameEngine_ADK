@@ -15,11 +15,23 @@ public class __ObjManager {
         this.__parent = __parent;
     }
 
+
+
+
+    public void __spriteIndexing(){
+        for(int i = 0; i< __child.size(); i++){
+            __child.get(i).__spriteIndexing();
+        }
+    }
+
+
+
     public void __draw(Canvas canvas){
         for(int i = 0; i< __child.size(); i++){
             __child.get(i).__draw(canvas);
         }
     }
+
 
 
 

@@ -22,24 +22,29 @@ public class __Resource {
     private HashMap<String, Sprite> __spriteHash = new HashMap<>();
 
 
+    //hash에 등록(tag, Sprite)
     public Sprite __registerSprite(String tag, Sprite sprite){
         if(!tag.equals(""))
             __spriteHash.put(tag, sprite);
         return sprite;
     }
 
-    public Sprite __getSprite(String tag, String path){
-        if(!__spriteHash.containsKey(tag)){
-            Sprite sprite = new Sprite(tag, path);
-            __spriteHash.put(tag, sprite);
-            return sprite;
-        }
-        return __spriteHash.get(tag);
+
+    public SpriteGroup __registerSpriteGroup(String tag, SpriteGroup sg){
+        if(!tag.equals(""))
+            __spriteGroupHash.put(tag, sg);
+        return sg;
     }
 
+
     public Sprite __getSprite(String tag){
-        if(__spriteHash.containsKey(tag))
-            return __spriteHash.get(tag);
+        if(__spriteHash.containsKey(tag)){
+            Sprite spr = __spriteHash.get(tag);
+            if(spr.__get_sprite() == null){
+                spr.__createSprite();
+            }
+            return spr;
+        }
         return null;
     }
 
@@ -100,21 +105,27 @@ tag :
     }
 
 
-    public SpriteGroup __createSpriteGroup(String tag, String path, String fileName, int startIndex, int endIndex){
-        if (tag.equals(""))
-            tag = path + "/" + fileName+ "/"  + startIndex+ "/"  + endIndex;
+    public ArrayList<Sprite> __checkFileGroup(String path, String fileName, int startIndex, int endIndex){
         ArrayList<String> file = __searchRTree(path, fileName, startIndex, endIndex);
-        if (file == null){
-            Log.e("Resource", "파일을 찾지못해 " + tag + "SpriteGroup을 생성하지 못했습니다.");
+        if(file == null)
             return null;
+        ArrayList<Sprite> listSprite = new ArrayList<>();
+        for(String str : file){
+            Sprite sprite = new Sprite(path + "/" + str.split("\\.")[0]);
+            listSprite.add(sprite);
         }
-        if(__spriteGroupHash.containsKey(tag))
-            Log.e("Resource", tag + "이름의 " + "SpriteGroup이 있습니다.");
-        SpriteGroup sg = new SpriteGroup(path, fileName, startIndex, endIndex);
-        sg.__setResource(this);
-        sg.__setSpriteName(file);
-        __spriteGroupHash.put(tag, sg);
-        return sg;
+        return listSprite;
+
+//        if (file == null){
+//            Log.e("Resource", "파일을 찾지못해 " + tag + "SpriteGroup을 생성하지 못했습니다.");
+//            return null;
+//        }
+//        if(__spriteGroupHash.containsKey(tag))
+//            Log.e("Resource", tag + "이름의 " + "SpriteGroup이 있습니다.");
+//        SpriteGroup sg = new SpriteGroup(path, fileName, startIndex, endIndex);
+//        sg.__setResource(this);
+//        sg.__setSpriteName(file);
+//        __spriteGroupHash.put(tag, sg);
     }
 
 

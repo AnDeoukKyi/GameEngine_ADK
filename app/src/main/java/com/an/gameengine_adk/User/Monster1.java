@@ -27,20 +27,34 @@ public class Monster1 extends Obj {
         //character
 
 
-        Sprite spr = new Sprite("11","sprite/ch2");
-        Sprite spr2 = new Sprite("11","sprite/ch3");
+//        Sprite spr2 = new Sprite("sprite/ch3");
+//        /*
+//        Sprite->path등록
+//        path기반으로 Sprite의 sprite(Bitmap)등록
+//        Resource에 path : Sprite로 등록
+//         */
+//        Sprite spr = new Sprite("11","sprite/ch2");
+//        /*
+//        Sprite->path등록
+//        path기반으로 Sprite의 sprite(Bitmap)등록
+//        Resource에 tag : Sprite로 등록
+//         */
+//        f_DrawSprite("pic", "sprite/ch1", 1, 0, new Rect(630, 670, 730, 870));
+//        /*
+//        ->tag없어야됨
+//
+//         */
+//        f_DrawSprite("pic", f_GetSprite("11"), 1, 0, new Rect(300, 300, 500, 500));
+//        //path말고 tag로 접근도 가능해야됨
+//        f_DrawSprite("pic", spr, 1, 0, new Rect(100, 100, 300, 300));
+//
+//
+//        //character(group)
+        SpriteGroup sg = new SpriteGroup("123","sprite", "ch", 1, 5);
 
-
-        f_DrawSprite("pic", f_GetSprite("11"), 1, 0, new Rect(300, 300, 500, 500));
-        //path말고 tag로 접근도 가능해야됨
-        f_DrawSprite("pic", "sprite/ch1", 1, 0, new Rect(630, 670, 730, 870));
-        f_DrawSprite("pic", spr, 1, 0, new Rect(100, 100, 300, 300));
-
-
-        //character(group)
-//        SpriteGroup sg = f_SpriteGroup("","sprite", "ch", 1, 5);
-
-//        f_DrawSprite("pic", sg, 1, 0, new Rect(630, 670, 730, 870));
+        SpriteGroup sg1 = new SpriteGroup("sprite", "ch", 1, 3);
+        f_DrawSprite("pic", sg, 1, 0, new Rect(100, 100, 300, 300));
+        int k = 10;
 
     }
 }

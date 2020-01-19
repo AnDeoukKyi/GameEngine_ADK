@@ -20,58 +20,56 @@ public class Sprite {
     private String __tag;
 
 
-//    public Sprite(String tag){
-//        if (!tag.equals(""))
-//            return;
-//        //찾아서주면됨tag맞춰서
-//    }
 
+
+
+
+    /*
+    tag없이 path만으로 Sprite생성(Obj에서)
+    hash에는 path:Sprite로 등록
+     */
     public Sprite(String path) {
+        __path = path;
         __Engine engine =  __Engine.__getEngine();
         __path = engine.__get_resource().__checkFile(path);
         if(__path == null)
             return;
-        try {
-            InputStream inputStream = engine.__getContext().getAssets().open(__path);
-            __sprite =  BitmapFactory.decodeStream(inputStream);
-            inputStream.close();
-        } catch (Exception e) {}
+        __createSprite();
+        engine.__get_resource().__registerSprite(__path, this);
     }
 
 
     public Sprite(String tag, String path) {
-        this.__tag = tag;
+        __tag = tag;
         __Engine engine =  __Engine.__getEngine();
         __path = engine.__get_resource().__checkFile(path);
         if(__path == null)
             return;
+        __createSprite();
+        engine.__get_resource().__registerSprite(tag, this);
+    }
+
+    //path에 맞춰서 sprite(Bitmap)대입
+    public void __createSprite(){
+        __Engine engine =  __Engine.__getEngine();
         try {
             InputStream inputStream = engine.__getContext().getAssets().open(__path);
             __sprite =  BitmapFactory.decodeStream(inputStream);
             inputStream.close();
         } catch (Exception e) {}
-        engine.__get_resource().__registerSprite(tag, this);
     }
 
-//    public Sprite(AssetManager assetManager, String file) {
-//        try {
-//            InputStream inputStream = assetManager.open(file);
-//            __sprite = BitmapFactory.decodeStream(inputStream);
-//            inputStream.close();
-//            __file = file;
-//        } catch (Exception e) {}
-//    }
 
 
     public String __get_path() {
         return __path;
     }
 
-    public Bitmap __get_sprite() {
-        return __sprite;
+    public String __get_tag() {
+        return __tag;
     }
 
-    public void __set_tag(String __tag) {
-        this.__tag = __tag;
+    public Bitmap __get_sprite() {
+        return __sprite;
     }
 }

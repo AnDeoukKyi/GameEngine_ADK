@@ -10,39 +10,44 @@ public class SpriteGroup {
     public ArrayList<String> spriteName = new ArrayList<>();
     private  __Resource resource;
 
-    private String path;
-    private String name;
-    private int startInex;
-    private int endIndex;
-
+    private String __path;
     private String __tag;
+    private String __fileName;
+    private int __startInex;
+    private int __endIndex;
+    private ArrayList<Sprite> __listSprite;
 
 
-    public SpriteGroup(String path, String name, int startIndex, int endIndex) {
-        this.path = path;
-        this.name = name;
-        this.startInex = startIndex;
-        this.endIndex = endIndex;
+
+    public SpriteGroup(String tag, String path, String fileName, int startIndex, int endIndex) {
+        __tag = tag;
+        __fileName = fileName;
+        __startInex = startIndex;
+        __endIndex = endIndex;
+        __Engine engine =  __Engine.__getEngine();
+        __listSprite = engine.__get_resource().__checkFileGroup(path, fileName, startIndex, endIndex);
+        if(__listSprite == null)
+            return;
+        engine.__get_resource().__registerSpriteGroup(__tag, this);
     }
 
-
-    public String getPath() {
-        return path;
+    public SpriteGroup(String path, String fileName, int startIndex, int endIndex) {
+        __tag = path + "/" + fileName + "/" +startIndex + "/" + endIndex;
+        __fileName = fileName;
+        __startInex = startIndex;
+        __endIndex = endIndex;
+        __Engine engine =  __Engine.__getEngine();
+        __listSprite = engine.__get_resource().__checkFileGroup(path, fileName, startIndex, endIndex);
+        if(__listSprite == null)
+            return;
+        engine.__get_resource().__registerSpriteGroup(__tag, this);
     }
 
-    public ArrayList<String> __getSpriteName() {
-        return spriteName;
+    public Sprite __getSprite(int index){
+        return __listSprite.get(index);
     }
 
-    public void __setSpriteName(ArrayList<String> spriteName) {
-        this.spriteName = spriteName;
-    }
-
-    public void __setResource(__Resource resource) {
-        this.resource = resource;
-    }
-
-    public void __set_tag(String __tag) {
-        this.__tag = __tag;
+    public int __size(){
+        return __listSprite.size();
     }
 }
