@@ -16,7 +16,7 @@ public class __Engine {
 
 
     //
-    private __ObjManager __objManager = new __ObjManager();
+    private __ObjManager __objManager = new __ObjManager(null);
     private int __objNum = 1;
     //
 

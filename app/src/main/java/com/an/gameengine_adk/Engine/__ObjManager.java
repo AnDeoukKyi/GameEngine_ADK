@@ -8,18 +8,16 @@ import java.util.ArrayList;
 
 public class __ObjManager {
 
-    private ArrayList<Obj> __list_obj = new ArrayList<>();
+    private ArrayList<Obj> __child = new ArrayList<>();
+    private Obj __parent;
 
-
-
-
-
-
-
+    public __ObjManager(Obj __parent) {
+        this.__parent = __parent;
+    }
 
     public void __draw(Canvas canvas){
-        for(int i = 0;  i<__list_obj.size(); i++){
-            __list_obj.get(i).__draw(canvas);
+        for(int i = 0; i< __child.size(); i++){
+            __child.get(i).__draw(canvas);
         }
     }
 
@@ -29,26 +27,27 @@ public class __ObjManager {
 
 
     public Obj __get_ID(int id){
-        for(int i = 0; i<__list_obj.size(); i++){
-            if(__list_obj.get(i).id == id)
-                return __list_obj.get(i);
+        for(int i = 0; i< __child.size(); i++){
+            if(__child.get(i).id == id)
+                return __child.get(i);
         }
         return null;
     }
 
     public void __add(Obj obj){
-        __list_obj.add(obj);
+        __child.add(obj);
+        obj.__set_parent(this);
     }
 
     public void __remove(int num){
-        __list_obj.remove(num);
+        __child.remove(num);
     }
 
     public Obj __get(int num){
-        return __list_obj.get(0);
+        return __child.get(0);
     }
 
     public int __size(){
-        return __list_obj.size();
+        return __child.size();
     }
 }

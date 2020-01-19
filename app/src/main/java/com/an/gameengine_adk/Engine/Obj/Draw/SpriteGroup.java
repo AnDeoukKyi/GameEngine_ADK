@@ -23,6 +23,15 @@ public class SpriteGroup {
         this.endIndex = endIndex;
     }
 
+
+    public String getPath() {
+        return path;
+    }
+
+    public ArrayList<String> __getSpriteName() {
+        return spriteName;
+    }
+
     public void __setSpriteName(ArrayList<String> spriteName) {
         this.spriteName = spriteName;
     }

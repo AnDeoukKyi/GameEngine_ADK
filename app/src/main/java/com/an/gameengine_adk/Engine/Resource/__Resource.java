@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 
+import com.an.gameengine_adk.Engine.Obj.Draw.Sprite;
 import com.an.gameengine_adk.Engine.Obj.Draw.SpriteGroup;
 
 import java.util.ArrayList;
@@ -17,8 +18,29 @@ public class __Resource {
 
 
 
-    private HashMap<String, SpriteGroup> hash = new HashMap<>();
+    private HashMap<String, SpriteGroup> __spriteGroupHash = new HashMap<>();
+    private HashMap<String, Sprite> __spriteHash = new HashMap<>();
 
+    public Sprite __createSprite() {
+        Sprite sprite = new Sprite(context.getResources().getAssets(), "asdf");
+        __spriteHash.put("tag", sprite);
+        return sprite;
+    }
+
+
+    /*
+s
+bitmap, tag, time
+tag : (sprite, time)
+
+
+sg
+tag :
+
+
+
+
+ */
 
 
     public __Resource(Context context) {
@@ -26,6 +48,16 @@ public class __Resource {
         assetmanager = context.getAssets();
         setResource();
     }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -48,12 +80,12 @@ public class __Resource {
             Log.e("Resource", "파일을 찾지못해 " + tag + "SpriteGroup을 생성하지 못했습니다.");
             return null;
         }
-        if(hash.containsKey(tag))
+        if(__spriteGroupHash.containsKey(tag))
             Log.e("Resource", tag + "이름의 " + "SpriteGroup이 있습니다.");
         SpriteGroup sg = new SpriteGroup(path, fileName, startIndex, endIndex);
         sg.__setResource(this);
         sg.__setSpriteName(file);
-        hash.put(tag, sg);
+        __spriteGroupHash.put(tag, sg);
         return sg;
     }
 
@@ -81,26 +113,6 @@ public class __Resource {
         }
         return file;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     private void setResource(){
         try{
