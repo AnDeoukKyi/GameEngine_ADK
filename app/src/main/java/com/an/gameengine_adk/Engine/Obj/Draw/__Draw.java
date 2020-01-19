@@ -3,7 +3,6 @@ package com.an.gameengine_adk.Engine.Obj.Draw;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 
 import com.an.gameengine_adk.Engine.Obj.Obj;
 
@@ -19,6 +18,7 @@ public class __Draw {
     private String __tag;
     private double speed;
     private double index;
+    private boolean __visible = false;
 
     private Point start;
     private Rect rect;
@@ -49,7 +49,7 @@ public class __Draw {
     public void __setSprite(String path){
         __drawType = 1;
         __path = path;
-        __sprite = new Sprite(path);
+        __sprite = new Sprite(path, 0);
     }
 
     public void __setSprite(Sprite sprite){
@@ -63,6 +63,7 @@ public class __Draw {
 
     public void __setSpriteGroup(SpriteGroup sg, double speed, int index){
         __drawType = 2;
+        __tag = sg.__get_tag();
         this.speed = speed;
         this.index = index;
         __spriteGroup = sg;
@@ -72,6 +73,14 @@ public class __Draw {
 
 
     //--------------------------------DRAW------------------------------------------------
+    public void Show(){
+        __visible = true;
+    }
+
+    public void f_Show(boolean visible) {
+        __visible = visible;
+    }
+
     public void __spriteIndexing(){
         if(__spriteGroup != null){
             index++;
@@ -81,6 +90,7 @@ public class __Draw {
     }
 
     public void __draw(Canvas canvas){
+        if (!__visible) return;//visible설정
         Rect rect;
         if(this.rect == null){
             rect = new Rect();
@@ -97,19 +107,18 @@ public class __Draw {
                         str = __path;
                     else
                         str = __tag;
-//                    __sprite = __obj.__get_engine().__get_resource().__getSprite(str);
+                    __obj.__get_engine().__get_resource().__loadSprite(str);
                 }
                 if(this.rect == null) {
                     rect.right = rect.left + __sprite.__get_sprite().getWidth();
                     rect.bottom = rect.top + __sprite.__get_sprite().getHeight();
                 }
-                if(__sprite.__get_sprite() == null){
-                    Log.e("Draw", "그릴려는 Sprite가 없습니다.");
-                    return;
-                }
                 canvas.drawBitmap(__sprite.__get_sprite(), null, rect, null);
                 break;
             case 2:
+                if (__spriteGroup.__getSprite((int)index).__get_sprite() == null) {
+                    __obj.__get_engine().__get_resource().__loadSpriteGroup(__tag);
+                }
                 if(this.rect == null) {
                     rect.right = rect.left + __spriteGroup.__getSprite((int)index).__get_sprite().getWidth();
                     rect.bottom = rect.top + __spriteGroup.__getSprite((int)index).__get_sprite().getHeight();
@@ -119,4 +128,7 @@ public class __Draw {
         }
     }
     //--------------------------------DRAW------------------------------------------------
+
+
+
 }

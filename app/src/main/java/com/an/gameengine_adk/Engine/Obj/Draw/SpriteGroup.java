@@ -1,6 +1,5 @@
 package com.an.gameengine_adk.Engine.Obj.Draw;
 
-import com.an.gameengine_adk.Engine.Resource.__Resource;
 import com.an.gameengine_adk.Engine.__Engine;
 
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ public class SpriteGroup {
     private int __startInex;
     private int __endIndex;
     private ArrayList<Sprite> __listSprite;
+    private int time = 0;
 
 
 
@@ -40,9 +40,22 @@ public class SpriteGroup {
     }
 
 
+    public void clear(){
+        for(Sprite spr: __listSprite){
+            spr.clear();
+        }
+    }
+
+    public void __load(){
+        for(Sprite spr: __listSprite){
+            spr.__createSprite();
+        }
+    }
 
 
-
+    public String __get_tag() {
+        return __tag;
+    }
 
     public Sprite __getSprite(int index){
         return __listSprite.get(index);

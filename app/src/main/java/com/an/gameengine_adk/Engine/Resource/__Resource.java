@@ -27,6 +27,12 @@ public class __Resource {
     }
 
 
+
+
+
+
+
+
     //----------------------------------SPRITE---------------------------------------------------
     public Sprite __registerSprite(String tag, Sprite sprite){
         if(!tag.equals(""))
@@ -40,15 +46,32 @@ public class __Resource {
         return sg;
     }
 
+    public void __loadSprite(String tag){
+        if(__spriteHash.containsKey(tag))
+            __spriteHash.get(tag).__createSprite();
+    }
+
+    public void __loadSpriteGroup(String tag){
+        if(__spriteGroupHash.containsKey(tag))
+            __spriteGroupHash.get(tag).__load();
+    }
+
     public Sprite __getSprite(String tag){
-        if(__spriteHash.containsKey(tag)){
-            Sprite spr = __spriteHash.get(tag);
-            if(spr.__get_sprite() == null){
-                spr.__createSprite();
-            }
-            return spr;
-        }
+        if(__spriteHash.containsKey(tag))
+            return __spriteHash.get(tag);
         return null;
+    }
+
+    public SpriteGroup __getSpriteGroup(String tag){
+        if(__spriteGroupHash.containsKey(tag))
+            return __spriteGroupHash.get(tag);
+        return null;
+    }
+
+    public void clear(){
+        for (String str: __spriteGroupHash.keySet()){
+            __spriteGroupHash.get(str).clear();
+        }
     }
     //----------------------------------SPRITE---------------------------------------------------
 
@@ -71,7 +94,7 @@ public class __Resource {
             return null;
         ArrayList<Sprite> listSprite = new ArrayList<>();
         for(String str : file){
-            Sprite sprite = new Sprite(path + "/" + str.split("\\.")[0]);
+            Sprite sprite = new Sprite(path + "/" + str.split("\\.")[0], 0);
             listSprite.add(sprite);
         }
         return listSprite;

@@ -27,7 +27,7 @@ public class Monster1 extends Obj {
         //character
 
 
-//        Sprite spr2 = new Sprite("sprite/ch3");
+        Sprite spr2 = new Sprite("sprite/ch3");
 //        /*
 //        Sprite->path등록
 //        path기반으로 Sprite의 sprite(Bitmap)등록
@@ -46,14 +46,14 @@ public class Monster1 extends Obj {
 //         */
 //        f_DrawSprite("pic", f_GetSprite("11"), 1, 0, new Rect(300, 300, 500, 500));
 //        //path말고 tag로 접근도 가능해야됨
-//        f_DrawSprite("pic", spr, 1, 0, new Rect(100, 100, 300, 300));
+        f_DrawSprite("pic", spr2, new Rect(100, 100, 300, 300));
 //
 //
 //        //character(group)
         SpriteGroup sg = new SpriteGroup("123","sprite", "ch", 1, 5);
-
-        SpriteGroup sg1 = new SpriteGroup("sprite", "ch", 1, 3);
-        f_DrawSprite("pic", sg, 1, 0, new Rect(100, 100, 300, 300));
+//
+//        SpriteGroup sg1 = new SpriteGroup("sprite", "ch", 1, 3);
+        f_DrawSprite("pic", sg, 1, 0, new Rect(300, 300, 500, 500)).Show();
         int k = 10;
 
     }

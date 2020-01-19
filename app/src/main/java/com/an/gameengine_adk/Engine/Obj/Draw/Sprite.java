@@ -1,12 +1,8 @@
 package com.an.gameengine_adk.Engine.Obj.Draw;
 
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.an.gameengine_adk.Engine.Resource.__Resource;
 import com.an.gameengine_adk.Engine.__Engine;
 
 import java.io.InputStream;
@@ -14,9 +10,12 @@ import java.io.InputStream;
 public class Sprite {
 
     private Bitmap __sprite;
-    private int time = 0;
     private String __path;
     private String __tag;
+    private int time = 0;
+
+
+
 
 
     public Sprite(String path) {
@@ -39,9 +38,24 @@ public class Sprite {
         engine.__get_resource().__registerSprite(tag, this);
     }
 
+    public Sprite(String path, int nothing) {
+        __path = path;
+        __Engine engine =  __Engine.__getEngine();
+        __path = engine.__get_resource().__checkFile(path);
+        if(__path == null)
+            return;
+        __createSprite();
+    }
 
 
 
+
+
+    //-----------------------------------------MEMORY-------------------------------------------
+    public void clear(){
+        __sprite = null;
+    }
+    //-----------------------------------------MEMORY-------------------------------------------
 
 
     //----------------------------------DECODE    SPRITE-------------------------------------------

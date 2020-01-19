@@ -6,6 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.an.gameengine_adk.Engine.__Engine;
@@ -31,18 +33,12 @@ public class Main extends AppCompatActivity {
         Screen1 s1 = new Screen1();
         engine = engine;
 
-
-
-//        try {
-//            ImageView iv = (ImageView)findViewById(R.id.iv);
-//            AssetManager assetManager = getResources().getAssets();
-//            InputStream inputStream = assetManager.open("__sprite/33.jpg");
-//            iv.setImageDrawable(Drawable.createFromStream(inputStream, null));
-//            inputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
+        Button btn = (Button)findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                engine.__get_resource().clear();
+            }
+        });
     }
 }

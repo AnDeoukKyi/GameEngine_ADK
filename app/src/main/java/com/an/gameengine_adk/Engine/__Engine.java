@@ -8,15 +8,10 @@ import com.an.gameengine_adk.Engine.Resource.__Resource;
 
 public class __Engine {
 
-
     private Context context;
     private __Resource __resource;
-
     private __ObjManager __objManager = new __ObjManager(null);
     private int __objNum = 1;
-
-
-
 
 
 
