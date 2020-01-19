@@ -19,35 +19,25 @@ import com.an.gameengine_adk.Engine.__ObjManager;
 
 public class Obj {
 
-
-
-    //
+    //----------------------------------------
     public double x = 0;
     public double y = 0;
     public int deep = 0;
-    //
+    //----------------------------------------
 
-    //
+    //----------------------------------------
     protected __Engine __engine = __Engine.__getEngine();
-    //
     public int id = 0;
     protected __ObjManager __child;
     public Obj parent;
-    public __ObjManager __parent;
+    private __ObjManager __parent;
     protected boolean __root = false;
-    //
-
-
-
-
-
-
-    //------------------------------------
     protected __DrawManager __drawManager;
     protected __Resource resource;
+    //----------------------------------------
 
 
-    //-------------------------------------
+
 
 
     public Obj() {
@@ -56,13 +46,14 @@ public class Obj {
         Start();
         __addObj();
     }
-    //
 
 
 
 
-
-
+    //-------------------------------------SPRITE----------------------------------------------
+    public Sprite f_GetSprite(String tag){
+        return resource.__getSprite(tag);
+    }
 
     protected __Draw f_DrawSprite(String name, SpriteGroup sg, double speed, int index, Rect rect){
         if (__drawManager == null)
@@ -71,16 +62,11 @@ public class Obj {
         __Draw draw = new __Draw(name, this);
         draw.__setSpriteGroup(sg, speed, index);
         draw.__setRect(rect);
-
         __drawManager.__add(draw);
         return draw;
     }
 
-
-    //1. String path를 주는경우와
-    //2. 아예 Sprite를 만들어서 주는경우가 있음
-
-    protected __Draw f_DrawSprite(String name, String path, double speed, int index, Rect rect){
+    protected __Draw f_DrawSprite(String name, String path, Rect rect){
         String _path = resource.__checkFile(path);//return String
         if (_path == null)
             return null;
@@ -88,46 +74,35 @@ public class Obj {
             __drawManager = new __DrawManager();
 
         __Draw draw = new __Draw(name, this);
-        draw.__setSprite(path, speed, index);
+        draw.__setSprite(path);
         draw.__setRect(rect);
 
         __drawManager.__add(draw);
         return draw;
     }
 
-    //2.
-    protected __Draw f_DrawSprite(String name, Sprite sprite, double speed, int index, Rect rect){
+    protected __Draw f_DrawSprite(String name, Sprite sprite, Rect rect){
         if (__drawManager == null)
             __drawManager = new __DrawManager();
 
         __Draw draw = new __Draw(name, this);
-        draw.__setSprite(sprite, speed, index);
+        draw.__setSprite(sprite);
         draw.__setRect(rect);
 
         __drawManager.__add(draw);
         return draw;
     }
-
-
-
-//    protected __Draw f_DrawSprite(String name, String path, double speed, int index, Point point){
-//        String file = resource.__checkFile(path);//return String
-//        if (file == null)
-//            return null;
-//        if (__drawManager == null)
-//            __drawManager = new __DrawManager();
-//
-//        __Draw draw = new __Draw(name, this);
-//        draw.__setSprite(__engine, file, speed, index);
-//        draw.__setPoint(point);
-//
-//        __drawManager.__add(draw);
-//        return draw;
-//    }
+    //-------------------------------------SPRITE----------------------------------------------
 
 
 
 
+
+
+
+
+
+    //-----------------------------------------DRAW------------------------------------------------
     public void __spriteIndexing(){
         if (__child != null)
             __child.__spriteIndexing();
@@ -135,25 +110,17 @@ public class Obj {
             __drawManager.__spriteIndexing();
     }
 
-
-    public Sprite f_GetSprite(String tag){
-        return resource.__getSprite(tag);
-    }
-
-
     public void __draw(Canvas canvas){
         if (__child != null)
             __child.__draw(canvas);
         if(__drawManager != null)
             __drawManager.__draw(canvas);
     }
-
-    public __Engine __get_engine() {
-        return __engine;
-    }
+    //-----------------------------------------DRAW------------------------------------------------
 
 
-//
+
+
 
     protected void __getObjNum(){
         id = __engine.__getObjNum();
@@ -163,15 +130,13 @@ public class Obj {
         __root = true;
         Log.e("Object", "최상위Object가 생성되었습니다." + this.getClass().toString());
     }
-
+    //-------------------------------------------------OBJECT--------------------------------------
     protected void __addObj(){
         if(__root)
             __engine.__addObj(this);
     }
 
-    public void __set_parent(__ObjManager __parent) {
-        this.__parent = __parent;
-    }
+
 
     public Obj f_GetChild(int id){
         return __child.__get_ID(id);
@@ -183,5 +148,13 @@ public class Obj {
             __child = new __ObjManager(this);
         __child.__add(childObj);
         return childObj.id;
+    }
+    //-------------------------------------------------OBJECT--------------------------------------
+
+    public void __set_parent(__ObjManager __parent) {
+        this.__parent = __parent;
+    }
+    public __Engine __get_engine() {
+        return __engine;
     }
 }

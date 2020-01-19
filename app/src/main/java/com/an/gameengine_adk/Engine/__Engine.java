@@ -12,17 +12,15 @@ public class __Engine {
     private Context context;
     private __Resource __resource;
 
-
-
-
-    //
     private __ObjManager __objManager = new __ObjManager(null);
     private int __objNum = 1;
-    //
 
 
 
 
+
+
+    //-------------------------------------LIFE     CYCLE-----------------------------------------
 
     public void __Run(Context context){
         this.context = context;
@@ -39,15 +37,27 @@ public class __Engine {
                 }
             }
         }).start();
-
-
-
     }
+    //-------------------------------------LIFE     CYCLE-----------------------------------------
 
 
+    //----------------------------------------DRAW------------------------------------------------
     public void __draw(Canvas canvas){
         __objManager.__draw(canvas);
     }
+    //----------------------------------------DRAW------------------------------------------------
+
+
+
+    //-----------------------------------OBJECT-------------------------------------------------
+    public void __addObj(Obj obj){
+        __objManager.__add(obj);
+    }
+
+    public int __getObjNum(){
+        return __objNum++;
+    }
+    //-----------------------------------OBJECT-------------------------------------------------
 
     public Context __getContext() {
         return context;
@@ -55,14 +65,6 @@ public class __Engine {
 
     public __Resource __get_resource() {
         return __resource;
-    }
-
-    public void __addObj(Obj obj){
-        __objManager.__add(obj);
-    }
-
-    public int __getObjNum(){
-        return __objNum++;
     }
 
     private static class EngineHolder {

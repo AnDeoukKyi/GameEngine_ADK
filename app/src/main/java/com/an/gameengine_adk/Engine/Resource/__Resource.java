@@ -15,27 +15,30 @@ public class __Resource {
     private Context context;
     private AssetManager assetmanager;
     private __RTree __rTree = new __RTree();
-
-
-
     private HashMap<String, SpriteGroup> __spriteGroupHash = new HashMap<>();
     private HashMap<String, Sprite> __spriteHash = new HashMap<>();
 
 
-    //hash에 등록(tag, Sprite)
+
+    public __Resource(Context context) {
+        this.context = context;
+        assetmanager = context.getAssets();
+        setResource();
+    }
+
+
+    //----------------------------------SPRITE---------------------------------------------------
     public Sprite __registerSprite(String tag, Sprite sprite){
         if(!tag.equals(""))
             __spriteHash.put(tag, sprite);
         return sprite;
     }
 
-
     public SpriteGroup __registerSpriteGroup(String tag, SpriteGroup sg){
         if(!tag.equals(""))
             __spriteGroupHash.put(tag, sg);
         return sg;
     }
-
 
     public Sprite __getSprite(String tag){
         if(__spriteHash.containsKey(tag)){
@@ -47,54 +50,12 @@ public class __Resource {
         }
         return null;
     }
-
-
-
-//    public Sprite __createSprite(String tag, String file) {
-//        Sprite sprite = new Sprite(context.getResources().getAssets(), file);
-//        __spriteHash.put(tag, sprite);
-//        return sprite;
-//    }
-
-
-    /*
-s
-bitmap, tag, time
-tag : (sprite, time)
-
-
-sg
-tag :
+    //----------------------------------SPRITE---------------------------------------------------
 
 
 
 
- */
-
-
-    public __Resource(Context context) {
-        this.context = context;
-        assetmanager = context.getAssets();
-        setResource();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //--------------------------------SEARCH   DIR-----------------------------------------------
     public String __checkFile(String path){
         String[] str = path.split("/");
         ArrayList<String> file = __searchRTree(path.substring(0, path.length() - str[str.length - 1].length() - 1), str[str.length - 1], -1 ,-1);
@@ -103,7 +64,6 @@ tag :
         else
             return file.get(0);
     }
-
 
     public ArrayList<Sprite> __checkFileGroup(String path, String fileName, int startIndex, int endIndex){
         ArrayList<String> file = __searchRTree(path, fileName, startIndex, endIndex);
@@ -115,19 +75,7 @@ tag :
             listSprite.add(sprite);
         }
         return listSprite;
-
-//        if (file == null){
-//            Log.e("Resource", "파일을 찾지못해 " + tag + "SpriteGroup을 생성하지 못했습니다.");
-//            return null;
-//        }
-//        if(__spriteGroupHash.containsKey(tag))
-//            Log.e("Resource", tag + "이름의 " + "SpriteGroup이 있습니다.");
-//        SpriteGroup sg = new SpriteGroup(path, fileName, startIndex, endIndex);
-//        sg.__setResource(this);
-//        sg.__setSpriteName(file);
-//        __spriteGroupHash.put(tag, sg);
     }
-
 
     private ArrayList<String> __searchRTree(String path, String fileName, int startIndex, int endIndex){
         //성공시 true반환
@@ -189,4 +137,5 @@ tag :
         }
         catch (Exception e){}
     }
+    //--------------------------------SEARCH   DIR-----------------------------------------------
 }

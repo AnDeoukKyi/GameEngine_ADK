@@ -10,24 +10,20 @@ import com.an.gameengine_adk.Engine.Obj.Obj;
 public class __Draw {
 
     public int id;
-    public String name;
-
-    public int __drawType = 0;
-    public Sprite __sprite;//drawType = 1;
-    public SpriteGroup __spriteGroup;//drawType = 2;
-
-
-
-    Point start;
-    Rect rect;
-
-
     private Obj __obj;
-    private double speed;
-    private int index;
-
+    public String name;
+    private int __drawType = 0;
+    private Sprite __sprite;//drawType = 1;
+    private SpriteGroup __spriteGroup;//drawType = 2;
     private String __path;
     private String __tag;
+    private double speed;
+    private double index;
+
+    private Point start;
+    private Rect rect;
+
+
 
 
     public __Draw(String name, Obj obj) {
@@ -35,7 +31,7 @@ public class __Draw {
         this.__obj = obj;
     }
 
-
+    //-----------------------------------POSITION-------------------------------------------
     public void __setRect(Rect rect){
         this.rect = rect;
     }
@@ -43,29 +39,25 @@ public class __Draw {
     public void __setPoint(Point point){
         this.start = point;
     }
+    //-----------------------------------POSITION-------------------------------------------
 
 
 
 
 
-
-    //-------------------------------------------------------------------------------------
-    public void __setSprite(String path, double speed, int index){
+    //-------------------------------SPRITE-----------------------------------------------
+    public void __setSprite(String path){
         __drawType = 1;
         __path = path;
-        this.speed = speed;
-        this.index = index;
         __sprite = new Sprite(path);
     }
 
-    public void __setSprite(Sprite sprite, double speed, int index){
+    public void __setSprite(Sprite sprite){
         __drawType = 1;
         if(sprite.__get_path() == null)
             __tag = sprite.__get_tag();
         else
             __path = sprite.__get_path();
-        this.speed = speed;
-        this.index = index;
         __sprite = sprite;
     }
 
@@ -75,12 +67,11 @@ public class __Draw {
         this.index = index;
         __spriteGroup = sg;
     }
-
-    //-----------------------------------------------------------------------------
-
+    //-------------------------------SPRITE-----------------------------------------------
 
 
 
+    //--------------------------------DRAW------------------------------------------------
     public void __spriteIndexing(){
         if(__spriteGroup != null){
             index++;
@@ -88,9 +79,6 @@ public class __Draw {
                 index = 0;
         }
     }
-
-
-
 
     public void __draw(Canvas canvas){
         Rect rect;
@@ -123,14 +111,12 @@ public class __Draw {
                 break;
             case 2:
                 if(this.rect == null) {
-                    rect.right = rect.left + __spriteGroup.__getSprite(index).__get_sprite().getWidth();
-                    rect.bottom = rect.top + __spriteGroup.__getSprite(index).__get_sprite().getHeight();
+                    rect.right = rect.left + __spriteGroup.__getSprite((int)index).__get_sprite().getWidth();
+                    rect.bottom = rect.top + __spriteGroup.__getSprite((int)index).__get_sprite().getHeight();
                 }
-                canvas.drawBitmap(__spriteGroup.__getSprite(index).__get_sprite(), null, rect, null);
+                canvas.drawBitmap(__spriteGroup.__getSprite((int)index).__get_sprite(), null, rect, null);
                 break;
         }
     }
-
-
-
+    //--------------------------------DRAW------------------------------------------------
 }

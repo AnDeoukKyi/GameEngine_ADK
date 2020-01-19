@@ -18,26 +18,22 @@ public class __ObjManager {
 
 
 
+
+    //--------------------------------DRAW-----------------------------------------------
     public void __spriteIndexing(){
         for(int i = 0; i< __child.size(); i++){
             __child.get(i).__spriteIndexing();
         }
     }
 
-
-
     public void __draw(Canvas canvas){
         for(int i = 0; i< __child.size(); i++){
             __child.get(i).__draw(canvas);
         }
     }
+    //--------------------------------DRAW-----------------------------------------------
 
-
-
-
-
-
-
+    //--------------------------------OJBECT---------------------------------------------
     public Obj __get_ID(int id){
         for(int i = 0; i< __child.size(); i++){
             if(__child.get(i).id == id)
@@ -50,7 +46,7 @@ public class __ObjManager {
         __child.add(obj);
         obj.__set_parent(this);
     }
-
+    //--------------------------------OJBECT---------------------------------------------
     public void __remove(int num){
         __child.remove(num);
     }

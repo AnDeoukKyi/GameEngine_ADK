@@ -7,10 +7,6 @@ import java.util.ArrayList;
 
 public class SpriteGroup {
 
-    public ArrayList<String> spriteName = new ArrayList<>();
-    private  __Resource resource;
-
-    private String __path;
     private String __tag;
     private String __fileName;
     private int __startInex;
@@ -42,6 +38,11 @@ public class SpriteGroup {
             return;
         engine.__get_resource().__registerSpriteGroup(__tag, this);
     }
+
+
+
+
+
 
     public Sprite __getSprite(int index){
         return __listSprite.get(index);

@@ -11,25 +11,22 @@ public class __DrawManager {
 
 
 
-
-
     public void __draw(Canvas canvas) {
         for(int i = 0; i<__list_draw.size(); i++)
             __list_draw.get(i).__draw(canvas);
-
     }
 
 
+    //-----------------------------------DRAW--------------------------------------------------
     public void __spriteIndexing(){
         for(int i = 0; i<__list_draw.size(); i++)
             __list_draw.get(i).__spriteIndexing();
     }
-
+    //-----------------------------------DRAW--------------------------------------------------
 
     public void __add(__Draw draw){
         __list_draw.add(draw);
         draw.id = __drawNum++;
-        //return
     }
 
     public void __remove(int num){

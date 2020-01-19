@@ -8,8 +8,7 @@ public class __RTree {
     private __RTree __parent;
     private ArrayList<String> __file;
 
-    public __RTree() {
-    }
+    public __RTree() {}
 
     public __RTree(String __name) {
         this.__name = __name;
@@ -18,7 +17,7 @@ public class __RTree {
 
 
 
-
+    //------------------------------------SEARCH---------------------------------------------
     public ArrayList<String> __searchFile(String fileName, int startIndex, int endIndex){
         ArrayList<String> f = null;
         for(int i = 0; i<__file.size(); i++){
@@ -47,7 +46,6 @@ public class __RTree {
         return f;
     }
 
-
     public __RTree __searchDir(String name){
         for(int i = 0; i<__child.size(); i++){
             if(__child.get(i).__name.equals(name)){
@@ -56,13 +54,17 @@ public class __RTree {
         }
         return null;
     }
+    //------------------------------------SEARCH---------------------------------------------
 
-
-
+    //-----------------------------------PARENT       CHILD----------------------------------
     public void __addChild(__RTree childTree){
         if(__child == null)
             __child = new ArrayList<>();
         __child.add(childTree);
+    }
+
+    public void __setParent(__RTree parent) {
+        this.__parent = parent;
     }
 
     public void __addFile(String fileName){
@@ -70,8 +72,5 @@ public class __RTree {
             __file = new ArrayList<>();
         __file.add(fileName);
     }
-
-    public void __setParent(__RTree parent) {
-        this.__parent = parent;
-    }
+    //-----------------------------------PARENT       CHILD----------------------------------
 }

@@ -13,21 +13,12 @@ import java.io.InputStream;
 
 public class Sprite {
 
-
     private Bitmap __sprite;
     private int time = 0;
     private String __path;
     private String __tag;
 
 
-
-
-
-
-    /*
-    tag없이 path만으로 Sprite생성(Obj에서)
-    hash에는 path:Sprite로 등록
-     */
     public Sprite(String path) {
         __path = path;
         __Engine engine =  __Engine.__getEngine();
@@ -37,7 +28,6 @@ public class Sprite {
         __createSprite();
         engine.__get_resource().__registerSprite(__path, this);
     }
-
 
     public Sprite(String tag, String path) {
         __tag = tag;
@@ -49,7 +39,12 @@ public class Sprite {
         engine.__get_resource().__registerSprite(tag, this);
     }
 
-    //path에 맞춰서 sprite(Bitmap)대입
+
+
+
+
+
+    //----------------------------------DECODE    SPRITE-------------------------------------------
     public void __createSprite(){
         __Engine engine =  __Engine.__getEngine();
         try {
@@ -58,7 +53,7 @@ public class Sprite {
             inputStream.close();
         } catch (Exception e) {}
     }
-
+    //----------------------------------DECODE    SPRITE-------------------------------------------
 
 
     public String __get_path() {
