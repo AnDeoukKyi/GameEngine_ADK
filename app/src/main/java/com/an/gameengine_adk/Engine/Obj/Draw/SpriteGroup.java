@@ -15,6 +15,8 @@ public class SpriteGroup {
     private int startInex;
     private int endIndex;
 
+    private String __tag;
+
 
     public SpriteGroup(String path, String name, int startIndex, int endIndex) {
         this.path = path;
@@ -38,5 +40,9 @@ public class SpriteGroup {
 
     public void __setResource(__Resource resource) {
         this.resource = resource;
+    }
+
+    public void __set_tag(String __tag) {
+        this.__tag = __tag;
     }
 }

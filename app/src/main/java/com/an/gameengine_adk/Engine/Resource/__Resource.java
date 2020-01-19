@@ -21,11 +21,35 @@ public class __Resource {
     private HashMap<String, SpriteGroup> __spriteGroupHash = new HashMap<>();
     private HashMap<String, Sprite> __spriteHash = new HashMap<>();
 
-    public Sprite __createSprite() {
-        Sprite sprite = new Sprite(context.getResources().getAssets(), "asdf");
-        __spriteHash.put("tag", sprite);
+
+    public Sprite __registerSprite(String tag, Sprite sprite){
+        if(!tag.equals(""))
+            __spriteHash.put(tag, sprite);
         return sprite;
     }
+
+    public Sprite __getSprite(String tag, String path){
+        if(!__spriteHash.containsKey(tag)){
+            Sprite sprite = new Sprite(tag, path);
+            __spriteHash.put(tag, sprite);
+            return sprite;
+        }
+        return __spriteHash.get(tag);
+    }
+
+    public Sprite __getSprite(String tag){
+        if(__spriteHash.containsKey(tag))
+            return __spriteHash.get(tag);
+        return null;
+    }
+
+
+
+//    public Sprite __createSprite(String tag, String file) {
+//        Sprite sprite = new Sprite(context.getResources().getAssets(), file);
+//        __spriteHash.put(tag, sprite);
+//        return sprite;
+//    }
 
 
     /*
@@ -62,7 +86,11 @@ tag :
 
 
 
-    public String __createSprite(String path){
+
+
+
+
+    public String __checkFile(String path){
         String[] str = path.split("/");
         ArrayList<String> file = __searchRTree(path.substring(0, path.length() - str[str.length - 1].length() - 1), str[str.length - 1], -1 ,-1);
         if(file == null)

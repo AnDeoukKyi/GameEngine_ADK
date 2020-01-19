@@ -4,10 +4,10 @@ package com.an.gameengine_adk.Engine.Obj;
 
 
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
 
+import com.an.gameengine_adk.Engine.Obj.Draw.Sprite;
 import com.an.gameengine_adk.Engine.Obj.Draw.SpriteGroup;
 import com.an.gameengine_adk.Engine.Obj.Draw.__Draw;
 import com.an.gameengine_adk.Engine.Obj.Draw.__DrawManager;
@@ -36,6 +36,9 @@ public class Obj {
     public __ObjManager __parent;
     protected boolean __root = false;
     //
+
+
+
 
 
 
@@ -88,14 +91,27 @@ public class Obj {
     //2. 아예 Sprite를 만들어서 주는경우가 있음
 
     protected __Draw f_DrawSprite(String name, String path, double speed, int index, Rect rect){
-        String file = resource.__createSprite(path);//return String
+        String file = resource.__checkFile(path);//return String
         if (file == null)
             return null;
         if (__drawManager == null)
             __drawManager = new __DrawManager();
 
         __Draw draw = new __Draw(name, this);
-        draw.__setSprite(file, speed, index);
+        draw.__setSprite(path, speed, index);
+        draw.__setRect(rect);
+
+        __drawManager.__add(draw);
+        return draw;
+    }
+
+    //2.
+    protected __Draw f_DrawSprite(String name, Sprite sprite, double speed, int index, Rect rect){
+        if (__drawManager == null)
+            __drawManager = new __DrawManager();
+
+        __Draw draw = new __Draw(name, this);
+        draw.__setSprite(sprite, speed, index);
         draw.__setRect(rect);
 
         __drawManager.__add(draw);
@@ -103,8 +119,9 @@ public class Obj {
     }
 
 
+
 //    protected __Draw f_DrawSprite(String name, String path, double speed, int index, Point point){
-//        String file = resource.__createSprite(path);//return String
+//        String file = resource.__checkFile(path);//return String
 //        if (file == null)
 //            return null;
 //        if (__drawManager == null)
@@ -125,6 +142,9 @@ public class Obj {
     }
 
 
+    public Sprite f_GetSprite(String tag){
+        return resource.__getSprite(tag);
+    }
 
 
     public void __draw(Canvas canvas){
