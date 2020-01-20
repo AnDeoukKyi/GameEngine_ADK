@@ -4,6 +4,7 @@ package com.an.gameengine_adk.Engine.Obj;
 
 
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
 
@@ -20,7 +21,9 @@ import com.an.gameengine_adk.Engine.__ObjManager;
 public class Obj {
 
     //----------------------------------------
-    public double x = 0;
+    public int WIDTH;
+    public int HEIGHT;
+    public Point pos = new Point(0, 0);
     public double y = 0;
     public int deep = 0;
     //----------------------------------------
@@ -42,11 +45,29 @@ public class Obj {
 
     public Obj() {
         resource = __engine.__get_resource();
+        Point p = __engine.__getDeviceSize();
+        WIDTH = p.x;
+        HEIGHT = p.y;
         __getObjNum();
         Start();
         __addObj();
     }
 
+    //-------------------------------------CAMERA----------------------------------------------
+    public void AttachCamera(){
+        __engine.__getCamera().Attach(this);
+    }
+    //-------------------------------------CAMERA----------------------------------------------
+
+    public void StepBefore(){
+
+    }
+    public void Step(){
+
+    }
+    public void StepAfter(){
+
+    }
 
 
 
@@ -82,8 +103,8 @@ public class Obj {
     }
 
     protected __Draw f_DrawSprite(String name, Sprite sprite, Rect rect){
-        if (__drawManager == null)
-            __drawManager = new __DrawManager();
+            if (__drawManager == null)
+                __drawManager = new __DrawManager();
 
         __Draw draw = new __Draw(name, this);
         draw.__setSprite(sprite);

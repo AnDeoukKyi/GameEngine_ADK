@@ -1,11 +1,21 @@
 package com.an.gameengine_adk.User.Map;
 
+import com.an.gameengine_adk.Engine.Map.Map.Map;
+import com.an.gameengine_adk.Engine.Obj.Obj;
 import com.an.gameengine_adk.User.Monster1;
+import com.an.gameengine_adk.User.Monster3;
 
-public class Screen1 {
+public class Screen1 extends Map {
 
 
     public Screen1() {
-        Monster1 m1 = new Monster1();
+        Obj mon1 = CreateObj(new Monster1());
+        mon1.AttachCamera();
+        Obj mon3 = new Monster3();
+
     }
+
+
+
+
 }

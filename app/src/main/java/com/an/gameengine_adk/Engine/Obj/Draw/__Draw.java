@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 
+import com.an.gameengine_adk.Engine.Map.Camera.Camera;
 import com.an.gameengine_adk.Engine.Obj.Obj;
 
 public class __Draw {
@@ -19,6 +20,7 @@ public class __Draw {
     private double speed;
     private double index;
     private boolean __visible = false;
+    private boolean __fixed = false;
 
     private Point start;
     private Rect rect;
@@ -72,15 +74,23 @@ public class __Draw {
 
 
 
-    //--------------------------------DRAW------------------------------------------------
-    public void Show(){
+    //--------------------------------SHOW------------------------------------------------
+    public __Draw Fixed(){
+        __fixed = true;
+        return this;
+    }
+
+    public __Draw Show(){
         __visible = true;
+        return this;
     }
 
     public void f_Show(boolean visible) {
         __visible = visible;
     }
+    //--------------------------------SHOW------------------------------------------------
 
+    //--------------------------------DRAW------------------------------------------------
     public void __spriteIndexing(){
         if(__spriteGroup != null){
             index++;
@@ -91,14 +101,7 @@ public class __Draw {
 
     public void __draw(Canvas canvas){
         if (!__visible) return;//visible설정
-        Rect rect;
-        if(this.rect == null){
-            rect = new Rect();
-            rect.left = this.start.x;
-            rect.top = this.start.y;
-        }
-        else
-            rect = this.rect;
+        Rect printRect = __setPrintRect();
         switch(__drawType){
             case 1:
                 if (__sprite.__get_sprite() == null){
@@ -110,23 +113,52 @@ public class __Draw {
                     __obj.__get_engine().__get_resource().__loadSprite(str);
                 }
                 if(this.rect == null) {
-                    rect.right = rect.left + __sprite.__get_sprite().getWidth();
-                    rect.bottom = rect.top + __sprite.__get_sprite().getHeight();
+                    printRect.right = printRect.left + __sprite.__get_sprite().getWidth();
+                    printRect.bottom = printRect.top + __sprite.__get_sprite().getHeight();
                 }
-                canvas.drawBitmap(__sprite.__get_sprite(), null, rect, null);
+                canvas.drawBitmap(__sprite.__get_sprite(), null, printRect, null);
                 break;
             case 2:
                 if (__spriteGroup.__getSprite((int)index).__get_sprite() == null) {
                     __obj.__get_engine().__get_resource().__loadSpriteGroup(__tag);
                 }
                 if(this.rect == null) {
-                    rect.right = rect.left + __spriteGroup.__getSprite((int)index).__get_sprite().getWidth();
-                    rect.bottom = rect.top + __spriteGroup.__getSprite((int)index).__get_sprite().getHeight();
+                    printRect.right = printRect.left + __spriteGroup.__getSprite((int)index).__get_sprite().getWidth();
+                    printRect.bottom = printRect.top + __spriteGroup.__getSprite((int)index).__get_sprite().getHeight();
                 }
-                canvas.drawBitmap(__spriteGroup.__getSprite((int)index).__get_sprite(), null, rect, null);
+                canvas.drawBitmap(__spriteGroup.__getSprite((int)index).__get_sprite(), null, printRect, null);
                 break;
         }
     }
+
+    private Rect __setPrintRect(){
+        Rect rect = new Rect();
+        Camera camera = __obj.__get_engine().__getCamera();
+        if(__fixed){//고정부분임
+            rect = new Rect(this.rect);
+        }
+        else{
+            int relX = __obj.pos.x + camera.width2;
+            int relY = __obj.pos.y + camera.height2;
+            if(camera.target != null){
+                relX -= camera.pos.x;
+                relY -= camera.pos.y;
+            }
+            if(this.rect == null){//시작좌표->높이길이는 알아서설정됨
+                rect.left = (int)(start.x + relX);
+                rect.top = (int)(start.y + relY);
+            }
+            else{//시작좌표, 끝좌표 다설정해야됨
+                rect = new Rect(this.rect);
+                rect.left = (int)(rect.left + relX);
+                rect.top = (int)(rect.top + relY);
+                rect.right = (int)(rect.right + relX);
+                rect.bottom = (int)(rect.bottom + relY);
+            }
+        }
+        return rect;
+    }
+
     //--------------------------------DRAW------------------------------------------------
 
 

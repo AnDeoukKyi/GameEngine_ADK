@@ -17,6 +17,25 @@ public class __ObjManager {
 
 
 
+    public void __stepBefore(){
+        for(int i = 0; i< __child.size(); i++){
+            __child.get(i).StepBefore();
+        }
+    }
+
+    public void __step(){
+        for(int i = 0; i< __child.size(); i++){
+            __child.get(i).Step();
+        }
+    }
+
+    public void __stepAfter(){
+        for(int i = 0; i< __child.size(); i++){
+            __child.get(i).StepAfter();
+        }
+    }
+
+
 
 
     //--------------------------------DRAW-----------------------------------------------
