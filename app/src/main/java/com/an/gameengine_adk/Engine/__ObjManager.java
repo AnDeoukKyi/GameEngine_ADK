@@ -1,6 +1,7 @@
 package com.an.gameengine_adk.Engine;
 
 import android.graphics.Canvas;
+import android.graphics.Point;
 
 import com.an.gameengine_adk.Engine.Obj.Obj;
 
@@ -36,7 +37,13 @@ public class __ObjManager {
     }
 
 
-
+    public boolean __mouse(Point p){
+        for(int i = 0; i< __child.size(); i++){
+            if(__child.get(i).__mouse(p))
+                return true;
+        }
+        return false;
+    }
 
     //--------------------------------DRAW-----------------------------------------------
     public void __spriteIndexing(){

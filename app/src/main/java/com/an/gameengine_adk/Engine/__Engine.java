@@ -4,10 +4,17 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.an.gameengine_adk.Engine.Map.Camera.Camera;
+import com.an.gameengine_adk.Engine.Obj.Click.Click;
+import com.an.gameengine_adk.Engine.Obj.Mask.Mask;
 import com.an.gameengine_adk.Engine.Obj.Obj;
 import com.an.gameengine_adk.Engine.Resource.__Resource;
+import com.an.gameengine_adk.Engine.Structure.__MouseEvent;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 public class __Engine {
 
@@ -24,8 +31,9 @@ public class __Engine {
 
     private Camera __camera;
 
-
-
+    private __MouseEvent __mouseEvent;
+    private Point mouse = new Point(0, 0);
+    private Point __mouseClick = new Point(0, 0);
 
 
 
@@ -38,7 +46,7 @@ public class __Engine {
         __resource = new __Resource(context);
 
         __deviceSize();
-
+        __mouseEvent = new __MouseEvent();
 
         new Thread(new Runnable() {
             public void run() {
@@ -64,9 +72,38 @@ public class __Engine {
     }
     //----------------------------------------DRAW------------------------------------------------
 
+    //--------------CLICK-------
+    public void __mouse(int type, Point p){
+        switch(type){
+            case 1:
+                mouse = p;
+                __objManager.__mouse(p);
+                __mouseClick = p;
+                break;
+            case 2:
+                mouse = p;
+                if(__mouseEvent.__get_list_mask() != null)
+                    __mouseEvent.__callMove(p, __mouseClick);
+                break;
+            case 3:
+                mouse = p;
+                if(__mouseEvent.__get_list_mask() != null)
+                    __mouseEvent.__callClick(p, __mouseClick);
+                __mouseEvent.__setMouseEvent(null, null);
+                __mouseClick = p;
+                break;
+        }
+    }
 
+    public void __mouseEvent(Obj obj, ArrayList<Mask> list_mask){
+        __mouseEvent.__setMouseEvent(obj, list_mask);
+    }
 
-    //-----------map
+    public Point __getMouse() {
+        return mouse;
+    }
+//--------------CLICK-------
+//-----------map
 
     private void __deviceSize(){
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();

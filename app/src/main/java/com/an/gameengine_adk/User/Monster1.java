@@ -51,17 +51,21 @@ public class Monster1 extends Obj {
 //
 //        SpriteGroup sg1 = new SpriteGroup("sprite", "ch", 1, 3);
         f_DrawSprite("pic", sg, 1, 0, new Rect(0, 0, 200, 200)).Show();
-        new Thread(new Runnable() {
-            public void run() {
-                while (true) {
-                    try {
-                        pos.x+=10;
-                        Thread.sleep(100);
-                    } catch (Throwable t) {
-                    }
-                }
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            public void run() {
+//                while (true) {
+//                    try {
+//                        pos.x+=10;
+//                        Thread.sleep(100);
+//                    } catch (Throwable t) {
+//                    }
+//                }
+//            }
+//        }).start();
+
+        f_Mask(new Rect(0, 0, 300, 300)).Click(new Monster1Click());
+
+
     }
 
     @Override

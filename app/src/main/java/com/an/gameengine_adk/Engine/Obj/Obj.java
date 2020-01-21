@@ -12,10 +12,14 @@ import com.an.gameengine_adk.Engine.Obj.Draw.Sprite;
 import com.an.gameengine_adk.Engine.Obj.Draw.SpriteGroup;
 import com.an.gameengine_adk.Engine.Obj.Draw.__Draw;
 import com.an.gameengine_adk.Engine.Obj.Draw.__DrawManager;
+import com.an.gameengine_adk.Engine.Obj.Mask.Mask;
+import com.an.gameengine_adk.Engine.Obj.Mask.__MaskManager;
 import com.an.gameengine_adk.Engine.Resource.__Resource;
+import com.an.gameengine_adk.Engine.Structure.Circle;
 import com.an.gameengine_adk.Engine.__Engine;
 import com.an.gameengine_adk.Engine.__ObjManager;
 
+import java.util.ArrayList;
 
 
 public class Obj {
@@ -40,6 +44,9 @@ public class Obj {
     //----------------------------------------
 
 
+    private __MaskManager __maskManager;
+
+
 
 
 
@@ -59,6 +66,8 @@ public class Obj {
     }
     //-------------------------------------CAMERA----------------------------------------------
 
+
+    //-------------------------------------STEP----------------------------------------------
     public void StepBefore(){
 
     }
@@ -68,7 +77,46 @@ public class Obj {
     public void StepAfter(){
 
     }
+    //-------------------------------------STEP----------------------------------------------
 
+
+
+    //click
+    public boolean __mouse(Point p){
+        ArrayList<Mask> list_mask = null;
+        if(__maskManager != null){
+            list_mask = __maskManager.__mouse(p);
+            if(list_mask != null){
+                __engine.__mouseEvent(this, list_mask);
+                return true;
+            }
+        }
+        if (__child != null)
+            if(__child.__mouse(p)){
+                return true;
+            }
+        return false;
+    }
+
+
+
+
+    //-------------------------------------MASK----------------------------------------------
+    protected Mask f_Mask(Rect rect){
+        if(__maskManager == null)
+            __maskManager = new __MaskManager();
+        Mask mask = new Mask(rect);
+        __maskManager.__add(mask);
+        return mask;
+    }
+    protected Mask f_Mask(Circle circle){
+        if(__maskManager == null)
+            __maskManager = new __MaskManager();
+        Mask mask = new Mask(circle);
+        __maskManager.__add(mask);
+        return mask;
+    }
+    //-------------------------------------MASK----------------------------------------------
 
 
     //-------------------------------------SPRITE----------------------------------------------

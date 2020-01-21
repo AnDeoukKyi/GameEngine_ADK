@@ -32,13 +32,5 @@ public class Main extends AppCompatActivity {
         engine.__Run(this);
         Screen1 s1 = new Screen1();
         engine = engine;
-
-        Button btn = (Button)findViewById(R.id.btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                engine.__get_resource().clear();
-            }
-        });
     }
 }
