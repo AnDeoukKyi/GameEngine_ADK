@@ -1,5 +1,6 @@
 package com.an.gameengine_adk.User;
 
+import android.graphics.Point;
 import android.graphics.Rect;
 
 import com.an.gameengine_adk.Engine.Obj.Draw.Sprite;
@@ -12,12 +13,11 @@ public class Monster3 extends Obj {
     @Override
     protected void Start() {
         super.Start();
-        f_DrawSprite("pic", new Sprite("sprite/ch3"), new Rect(100, 100, 300, 300)).Show();
+//        f_DrawSprite("pic", new Sprite("sprite/ch3"), new Rect(100, 100, 300, 300)).Show();
     }
 
     @Override
     public void Run() {
         f_SetDeep(13);
-
     }
 }

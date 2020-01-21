@@ -1,10 +1,8 @@
 package com.an.gameengine_adk.User;
 
-import android.graphics.Point;
 import android.graphics.Rect;
 
 import com.an.gameengine_adk.Engine.Obj.Draw.Sprite;
-import com.an.gameengine_adk.Engine.Obj.Draw.SpriteGroup;
 import com.an.gameengine_adk.Engine.Obj.Obj;
 
 public class Monster1 extends Obj {
@@ -29,34 +27,21 @@ public class Monster1 extends Obj {
 //            }
 //        }
         //character
-        Sprite spr2 = new Sprite("sprite/ch3");
-//        /*
-//        Sprite->path등록
-//        path기반으로 Sprite의 sprite(Bitmap)등록
-//        Resource에 path : Sprite로 등록
-//         */
-//        Sprite spr = new Sprite("11","sprite/ch2");
-//        /*
-//        Sprite->path등록
-//        path기반으로 Sprite의 sprite(Bitmap)등록
-//        Resource에 tag : Sprite로 등록
-//         */
-//        f_DrawSprite("pic", "sprite/ch1", 1, 0, new SPoint(630, 670, 730, 870));
-//        /*
-//        ->tag없어야됨
 //
-//         */
+//        Sprite spr = new Sprite("11","sprite/ch2");
+//        f_DrawSprite("pic", "sprite/ch1", 1, 0, new SPoint(630, 670, 730, 870));
 //        f_DrawSprite("pic", f_GetSprite("11"), 1, 0, new SPoint(300, 300, 500, 500));
 //        //path말고 tag로 접근도 가능해야됨
-//        f_DrawSprite("pic", spr2, new Rect(100, 100, 300, 300)).Show();
+        Sprite spr2 = new Sprite("sprite/ch3");
+        f_DrawSprite("pic", spr2, new Rect(0, 0, 200, 200)).Show();
 //
 //
 //        //character(group)
-        SpriteGroup sg = new SpriteGroup("123","sprite", "ch", 1, 5);
+//        SpriteGroup sg = new SpriteGroup("123","sprite", "ch", 1, 5);
 //
 //        SpriteGroup sg1 = new SpriteGroup("sprite", "ch", 1, 3);
-        f_DrawSprite("pic", sg, 1, 0, new Rect(0, 0, 200, 200)).Show();
-        f_Mask(new Rect(0, 0, 300, 300)).Click(new Monster1Click());
+//        f_DrawSprite("pic", sg, 1, 0, new Rect(0, 0, 200, 200)).Show();
+//        f_Mask(new Rect(0, 0, 300, 300)).Click(new Monster1Click());
 //        new Thread(new Runnable() {
 //            public void run() {
 //                while (true) {
@@ -68,6 +53,8 @@ public class Monster1 extends Obj {
 //                }
 //            }
 //        }).start();
+        pos.x = 100;
+        pos.y = 0;
     }
 
     @Override

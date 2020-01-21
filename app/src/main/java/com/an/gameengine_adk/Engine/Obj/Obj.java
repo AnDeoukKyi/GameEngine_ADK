@@ -28,6 +28,7 @@ public class Obj {
     public int WIDTH;
     public int HEIGHT;
     public Point pos = new Point(0, 0);
+    public Point posR = new Point(0, 0);
     private int __deep = 0;
     //----------------------------------------
 
@@ -63,6 +64,10 @@ public class Obj {
     public void Run(){
 
     }
+
+
+
+
 
 
     //-------------------------------------C A M E R A----------------------------------------------
@@ -192,6 +197,17 @@ public class Obj {
         if(__drawManager != null)
             __drawManager.__draw(canvas);
     }
+
+    public void __setRootPos(){
+        posR = new Point(__parent.__getRootPos());
+        posR.x += pos.x;
+        posR.y += pos.y;
+        if(__child != null)
+            __child.__setRootPos();
+    }
+
+
+
     //-----------------------------------------D R A W------------------------------------------------
 
 

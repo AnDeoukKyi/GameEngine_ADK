@@ -20,6 +20,14 @@ public class __ObjManager {
 
 
 
+    public void __setRootPos(){
+        for(int i = 0; i< __child.size(); i++){
+            __child.get(i).__setRootPos();
+        }
+    }
+
+
+
     public void __stepBefore(){
         for(int i = 0; i< __child.size(); i++){
             __child.get(i).StepBefore();
@@ -60,6 +68,11 @@ public class __ObjManager {
         for(int i = 0; i< __child.size(); i++){
             __child.get(i).__draw(canvas);
         }
+    }
+
+    public Point __getRootPos(){
+        if(__parent == null) return new Point(0, 0);
+        return __parent.posR;
     }
     //--------------------------------D R A W-----------------------------------------------
 

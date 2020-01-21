@@ -1,5 +1,9 @@
 package com.an.gameengine_adk.User;
 
+import android.graphics.Point;
+import android.graphics.Rect;
+
+import com.an.gameengine_adk.Engine.Obj.Draw.Sprite;
 import com.an.gameengine_adk.Engine.Obj.Obj;
 
 public class Monster2 extends Obj {
@@ -9,7 +13,14 @@ public class Monster2 extends Obj {
 
     @Override
     protected void Start() {
-//        int id1 = f_SetChild(new Monster1_2_1());
-        //f_getChild(id)->Obj
+        pos.x = 200;
+        pos.y = 0;
+    }
+
+    @Override
+    public void Run() {
+
+        Sprite spr2 = new Sprite("sprite/ch1");
+        f_DrawSprite("pic", spr2, new Rect(0, 0, 200, 200)).Show();
     }
 }

@@ -138,8 +138,8 @@ public class __Draw {
             rect = new Rect(this.rect);
         }
         else{
-            int relX = __obj.pos.x + camera.width2;
-            int relY = __obj.pos.y + camera.height2;
+            int relX = __obj.posR.x + camera.width2;
+            int relY = __obj.posR.y + camera.height2;
             if(camera.target != null){
                 relX -= camera.pos.x;
                 relY -= camera.pos.y;

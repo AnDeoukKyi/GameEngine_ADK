@@ -48,6 +48,7 @@ public class __Engine {
             public void run() {
                 while (true) {
                     try {
+                        __objManager.__setRootPos();
                         __objManager.__stepBefore();
                         __objManager.__spriteIndexing();
                         __objManager.__step();

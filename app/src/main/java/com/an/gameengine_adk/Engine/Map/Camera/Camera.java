@@ -38,7 +38,7 @@ public class Camera {
 
     public void Attach(Obj obj){
         target = obj;
-        pos = obj.pos;
+        pos = obj.posR;
     }
 
 
