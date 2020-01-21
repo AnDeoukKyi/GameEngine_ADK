@@ -21,28 +21,16 @@ public class __Canvas extends View {
     public __Canvas(Context context, AttributeSet attrs) {
         super(context, attrs);
         __engine = __Engine.__getEngine();
-//        printWindowSize = __engine.isPrintWindowSize();
-//        paint = new Paint();
-//        paint.setTextSize(30);
     }
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        //wait삭제할거 삭제한뒤에 출력함
-
-//        __engine.getObjMaster().__draw(canvas);
         __engine.__draw(canvas);
-
-
         invalidate();
     }
 
 
-
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         switch(event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 __engine.__mouse(1, new Point((int)event.getX(), (int)event.getY()));

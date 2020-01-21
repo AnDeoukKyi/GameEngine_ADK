@@ -6,6 +6,8 @@ import android.graphics.Point;
 import com.an.gameengine_adk.Engine.Obj.Obj;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class __ObjManager {
 
@@ -37,6 +39,8 @@ public class __ObjManager {
     }
 
 
+    //----------------------------------------C L I C K------------------------------------------------
+
     public boolean __mouse(Point p){
         for(int i = 0; i< __child.size(); i++){
             if(__child.get(i).__mouse(p))
@@ -44,8 +48,8 @@ public class __ObjManager {
         }
         return false;
     }
-
-    //--------------------------------DRAW-----------------------------------------------
+    //----------------------------------------C L I C K------------------------------------------------
+    //--------------------------------D R A W-----------------------------------------------
     public void __spriteIndexing(){
         for(int i = 0; i< __child.size(); i++){
             __child.get(i).__spriteIndexing();
@@ -57,9 +61,9 @@ public class __ObjManager {
             __child.get(i).__draw(canvas);
         }
     }
-    //--------------------------------DRAW-----------------------------------------------
+    //--------------------------------D R A W-----------------------------------------------
 
-    //--------------------------------OJBECT---------------------------------------------
+    //--------------------------------O J B E C T---------------------------------------------
     public Obj __get_ID(int id){
         for(int i = 0; i< __child.size(); i++){
             if(__child.get(i).id == id)
@@ -71,8 +75,20 @@ public class __ObjManager {
     public void __add(Obj obj){
         __child.add(obj);
         obj.__set_parent(this);
+        __deepSort();
     }
-    //--------------------------------OJBECT---------------------------------------------
+
+    public void __deepSort(){
+        Comparator<Obj> cmpDeep = new Comparator<Obj>() {
+            @Override
+            public int compare(Obj obj1, Obj obj2) {
+                return obj2.f_GetDeep() - obj1.f_GetDeep();
+            }
+        };
+        Collections.sort(__child, cmpDeep);
+    }
+
+    //--------------------------------O J B E C T---------------------------------------------
     public void __remove(int num){
         __child.remove(num);
     }

@@ -20,21 +20,26 @@ public class __MouseEvent {
             __list_mask.get(i).__checkClick(p, click, __obj);
     }
 
-    public void __callMove(Point p, Point click){
+    public void __callMove(Point p, Point start){
         for(int i = 0; i<__list_mask.size(); i++)
-            __list_mask.get(i).__checkMove(p, click, __obj);
+            __list_mask.get(i).__checkMove(p, start, __obj);
     }
 
-    public Obj __get_obj() {
-        return __obj;
-    }
-
-    public ArrayList<Mask> __get_list_mask() {
-        return __list_mask;
+    public void __callMoveEnd(Point p, Point click){
+        for(int i = 0; i<__list_mask.size(); i++)
+            __list_mask.get(i).__callMoveEnd(p, click, __obj);
     }
 
     public void __setMouseEvent(Obj obj, ArrayList<Mask> list_mask) {
         __obj = obj;
         __list_mask = list_mask;
+    }
+
+
+
+
+
+    public ArrayList<Mask> __get_list_mask() {
+        return __list_mask;
     }
 }

@@ -8,9 +8,13 @@ public class Click {
 
     protected Point mouse = __Engine.__getEngine().__getMouse();
 
-    public void Move(Object target, Point click){
-    }
 
-    public void Click(Object target){
-    }
+
+
+
+    public void Move(Object target, Point start){}
+
+    public void MoveEnd(Object target, Point start){}
+
+    public void Click(Object target){}
 }

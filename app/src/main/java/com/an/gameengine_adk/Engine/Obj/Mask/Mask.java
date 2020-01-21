@@ -44,16 +44,16 @@ public class Mask {
         }
     }
 
-    public void __checkMove(Point p, Point click, Obj obj){
-        if(Math.sqrt((p.x - click.x) * (p.x - click.x) + (p.y - click.y) * (p.y - click.y)) > 20)
-            __clickListener.Move(obj, click);
+    public void __checkMove(Point p, Point start, Obj obj){
+        if(Math.sqrt((p.x - start.x) * (p.x - start.x) + (p.y - start.y) * (p.y - start.y)) > 20)
+            __clickListener.Move(obj, start);
+    }
+
+    public void __callMoveEnd(Point p, Point click, Obj obj){
+        __clickListener.MoveEnd(obj, click);
     }
 
     public void Click(Click click){
         __clickListener = click;
-    }
-
-    public Click __get_clickListener() {
-        return __clickListener;
     }
 }

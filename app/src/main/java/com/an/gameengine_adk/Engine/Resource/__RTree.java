@@ -17,7 +17,7 @@ public class __RTree {
 
 
 
-    //------------------------------------SEARCH---------------------------------------------
+    //------------------------------------S E A R C H---------------------------------------------
     public ArrayList<String> __searchFile(String fileName, int startIndex, int endIndex){
         ArrayList<String> f = null;
         for(int i = 0; i<__file.size(); i++){
@@ -54,9 +54,9 @@ public class __RTree {
         }
         return null;
     }
-    //------------------------------------SEARCH---------------------------------------------
+    //------------------------------------S E A R C H---------------------------------------------
 
-    //-----------------------------------PARENT       CHILD----------------------------------
+    //-----------------------------------P A R E N T       C H I L D----------------------------------
     public void __addChild(__RTree childTree){
         if(__child == null)
             __child = new ArrayList<>();
@@ -72,5 +72,5 @@ public class __RTree {
             __file = new ArrayList<>();
         __file.add(fileName);
     }
-    //-----------------------------------PARENT       CHILD----------------------------------
+    //-----------------------------------P A R E N T       C H I L D----------------------------------
 }

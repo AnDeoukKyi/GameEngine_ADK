@@ -4,16 +4,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
-import android.util.Log;
-
 import com.an.gameengine_adk.Engine.Map.Camera.Camera;
-import com.an.gameengine_adk.Engine.Obj.Click.Click;
 import com.an.gameengine_adk.Engine.Obj.Mask.Mask;
 import com.an.gameengine_adk.Engine.Obj.Obj;
 import com.an.gameengine_adk.Engine.Resource.__Resource;
 import com.an.gameengine_adk.Engine.Structure.__MouseEvent;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class __Engine {
@@ -34,12 +29,13 @@ public class __Engine {
     private __MouseEvent __mouseEvent;
     private Point mouse = new Point(0, 0);
     private Point __mouseClick = new Point(0, 0);
+    private boolean __mouseDrag = false;
 
 
 
 
 
-    //-------------------------------------LIFE     CYCLE-----------------------------------------
+    //-------------------------------------L I F E     C Y C L E-----------------------------------------
 
     public void __Run(Context context){
         this.context = context;
@@ -63,32 +59,45 @@ public class __Engine {
             }
         }).start();
     }
-    //-------------------------------------LIFE     CYCLE-----------------------------------------
+    //-------------------------------------L I F E     C Y C L E-----------------------------------------
 
 
-    //----------------------------------------DRAW------------------------------------------------
+    //----------------------------------------D R A W------------------------------------------------
     public void __draw(Canvas canvas){
         __objManager.__draw(canvas);
     }
-    //----------------------------------------DRAW------------------------------------------------
+    //----------------------------------------D R A W------------------------------------------------
 
-    //--------------CLICK-------
+    //----------------------------------------C L I C K------------------------------------------------
     public void __mouse(int type, Point p){
         switch(type){
             case 1:
+                __mouseDrag = false;
                 mouse = p;
                 __objManager.__mouse(p);
                 __mouseClick = p;
                 break;
             case 2:
+                if(!__mouseDrag){
+                    if(Math.sqrt((p.x - __mouseClick.x) * (p.x - __mouseClick.x) + (p.y - __mouseClick.y) * (p.y - __mouseClick.y)) <= 20)
+                        __mouseDrag = true;
+                    else
+                        return;
+                }
                 mouse = p;
                 if(__mouseEvent.__get_list_mask() != null)
                     __mouseEvent.__callMove(p, __mouseClick);
                 break;
             case 3:
                 mouse = p;
-                if(__mouseEvent.__get_list_mask() != null)
-                    __mouseEvent.__callClick(p, __mouseClick);
+                if(__mouseDrag){
+                    if(__mouseEvent.__get_list_mask() != null)
+                        __mouseEvent.__callMoveEnd(p, __mouseClick);
+                }
+                else{
+                    if(__mouseEvent.__get_list_mask() != null)
+                        __mouseEvent.__callClick(p, __mouseClick);
+                }
                 __mouseEvent.__setMouseEvent(null, null);
                 __mouseClick = p;
                 break;
@@ -102,8 +111,10 @@ public class __Engine {
     public Point __getMouse() {
         return mouse;
     }
-//--------------CLICK-------
-//-----------map
+    //----------------------------------------C L I C K------------------------------------------------
+
+
+    //----------------------------------------M A P------------------------------------------------
 
     private void __deviceSize(){
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
@@ -123,13 +134,13 @@ public class __Engine {
         return __camera;
     }
 
-    //-----------map
+    //----------------------------------------M A P------------------------------------------------
 
 
 
 
 
-    //-----------------------------------OBJECT-------------------------------------------------
+    //-----------------------------------O B J E C T-------------------------------------------------
     public void __addObj(Obj obj){
         __objManager.__add(obj);
     }
@@ -137,7 +148,7 @@ public class __Engine {
     public int __getObjNum(){
         return __objNum++;
     }
-    //-----------------------------------OBJECT-------------------------------------------------
+    //-----------------------------------O B J E C T-------------------------------------------------
 
     public Context __getContext() {
         return context;

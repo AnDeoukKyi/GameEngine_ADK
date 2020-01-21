@@ -33,7 +33,7 @@ public class __Resource {
 
 
 
-    //----------------------------------SPRITE---------------------------------------------------
+    //----------------------------------S P R I T E---------------------------------------------------
     public Sprite __registerSprite(String tag, Sprite sprite){
         if(!tag.equals(""))
             __spriteHash.put(tag, sprite);
@@ -73,12 +73,12 @@ public class __Resource {
             __spriteGroupHash.get(str).clear();
         }
     }
-    //----------------------------------SPRITE---------------------------------------------------
+    //----------------------------------S P R I T E---------------------------------------------------
 
 
 
 
-    //--------------------------------SEARCH   DIR-----------------------------------------------
+    //--------------------------------S E A R C H   D I R-----------------------------------------------
     public String __checkFile(String path){
         String[] str = path.split("/");
         ArrayList<String> file = __searchRTree(path.substring(0, path.length() - str[str.length - 1].length() - 1), str[str.length - 1], -1 ,-1);
@@ -160,5 +160,5 @@ public class __Resource {
         }
         catch (Exception e){}
     }
-    //--------------------------------SEARCH   DIR-----------------------------------------------
+    //--------------------------------S E A R C H   D I R-----------------------------------------------
 }

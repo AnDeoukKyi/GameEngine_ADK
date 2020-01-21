@@ -14,6 +14,11 @@ public class Monster1 extends Obj {
     protected void Start() {
         super.Start();//최상위 부모만 호출
         int id1 = f_SetChild(new Monster2());
+    }
+
+    @Override
+    public void Run() {
+        f_SetDeep(10);
 
 //        f_DrawSprite("pic", "sprite/background1", 1, 0, new SPoint(0, 0, 1920, 1080));
 ////
@@ -51,6 +56,7 @@ public class Monster1 extends Obj {
 //
 //        SpriteGroup sg1 = new SpriteGroup("sprite", "ch", 1, 3);
         f_DrawSprite("pic", sg, 1, 0, new Rect(0, 0, 200, 200)).Show();
+        f_Mask(new Rect(0, 0, 300, 300)).Click(new Monster1Click());
 //        new Thread(new Runnable() {
 //            public void run() {
 //                while (true) {
@@ -62,10 +68,6 @@ public class Monster1 extends Obj {
 //                }
 //            }
 //        }).start();
-
-        f_Mask(new Rect(0, 0, 300, 300)).Click(new Monster1Click());
-
-
     }
 
     @Override

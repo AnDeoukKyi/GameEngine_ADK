@@ -13,6 +13,11 @@ public class Monster3 extends Obj {
     protected void Start() {
         super.Start();
         f_DrawSprite("pic", new Sprite("sprite/ch3"), new Rect(100, 100, 300, 300)).Show();
+    }
+
+    @Override
+    public void Run() {
+        f_SetDeep(13);
 
     }
 }
