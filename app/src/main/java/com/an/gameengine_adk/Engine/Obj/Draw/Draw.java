@@ -5,32 +5,38 @@ import android.graphics.Point;
 import android.graphics.Rect;
 
 import com.an.gameengine_adk.Engine.Map.Camera.Camera;
-import com.an.gameengine_adk.Engine.Obj.Obj;
+import com.an.gameengine_adk.Engine.Obj.Obj.Obj;
 
-public class __Draw {
+public class Draw {
 
     public int id;
     private Obj __obj;
     public String name;
-    private int __drawType = 0;
-    private Sprite __sprite;//drawType = 1;
-    private SpriteGroup __spriteGroup;//drawType = 2;
+
     private String __path;
     private String __tag;
-    private double speed;
+    private double __speed;
     private double index;
     private boolean __visible = false;
     private boolean __fixed = false;
+    private int __deep = 0;
 
     private Point start;
     private Rect rect;
 
 
+    private int __drawType = 0;
+    private Sprite __sprite;//drawType = 1;
+    private SpriteGroup __spriteGroup;//drawType = 2;
 
 
-    public __Draw(String name, Obj obj) {
+
+
+
+    public Draw(Obj obj, String name, int deep) {
         this.name = name;
         this.__obj = obj;
+        this.__deep = deep;
     }
 
     //-----------------------------------P O S I T I O N-------------------------------------------
@@ -66,7 +72,7 @@ public class __Draw {
     public void __setSpriteGroup(SpriteGroup sg, double speed, int index){
         __drawType = 2;
         __tag = sg.__get_tag();
-        this.speed = speed;
+        this.__speed = speed;
         this.index = index;
         __spriteGroup = sg;
     }
@@ -75,17 +81,17 @@ public class __Draw {
 
 
     //--------------------------------S H O W------------------------------------------------
-    public __Draw Fixed(){
+    public Draw Fixed(){
         __fixed = true;
         return this;
     }
 
-    public __Draw Show(){
+    public Draw Show(){
         __visible = true;
         return this;
     }
 
-    public void f_Show(boolean visible) {
+    public void Show(boolean visible) {
         __visible = visible;
     }
     //--------------------------------S H O W------------------------------------------------
@@ -138,9 +144,9 @@ public class __Draw {
             rect = new Rect(this.rect);
         }
         else{
-            int relX = __obj.posR.x + camera.width2;
-            int relY = __obj.posR.y + camera.height2;
-            if(camera.target != null){
+            int relX = camera.width2 + __obj.posR.x;
+            int relY = camera.height2 + __obj.posR.y;
+            if(camera.target != null) {
                 relX -= camera.pos.x;
                 relY -= camera.pos.y;
             }
@@ -162,5 +168,7 @@ public class __Draw {
     //--------------------------------D R A W------------------------------------------------
 
 
-
+    public int __get_deep() {
+        return __deep;
+    }
 }

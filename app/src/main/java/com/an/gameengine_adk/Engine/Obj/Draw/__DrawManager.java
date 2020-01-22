@@ -3,11 +3,13 @@ package com.an.gameengine_adk.Engine.Obj.Draw;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class __DrawManager {
 
     private int  __drawNum = 1;
-    private ArrayList<__Draw> __list_draw = new ArrayList<>();
+    private ArrayList<Draw> __list_draw = new ArrayList<>();
 
 
 
@@ -24,16 +26,20 @@ public class __DrawManager {
     }
     //-----------------------------------D R A W--------------------------------------------------
 
-    public void __add(__Draw draw){
+    public void __add(Draw draw){
         __list_draw.add(draw);
         draw.id = __drawNum++;
+    }
+
+    public ArrayList<Draw> __get_list_draw() {
+        return __list_draw;
     }
 
     public void __remove(int num){
         __list_draw.remove(num);
     }
 
-    public __Draw __get(int num){
+    public Draw __get(int num){
         return __list_draw.get(0);
     }
 

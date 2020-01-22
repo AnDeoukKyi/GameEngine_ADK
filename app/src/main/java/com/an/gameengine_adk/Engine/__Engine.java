@@ -5,11 +5,16 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
 import com.an.gameengine_adk.Engine.Map.Camera.Camera;
+import com.an.gameengine_adk.Engine.Obj.Draw.Draw;
 import com.an.gameengine_adk.Engine.Obj.Mask.Mask;
-import com.an.gameengine_adk.Engine.Obj.Obj;
+import com.an.gameengine_adk.Engine.Obj.Obj.Obj;
+import com.an.gameengine_adk.Engine.Obj.Obj.__ObjManager;
 import com.an.gameengine_adk.Engine.Resource.__Resource;
 import com.an.gameengine_adk.Engine.Structure.__MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 public class __Engine {
 
@@ -21,6 +26,8 @@ public class __Engine {
 
 
     private __ObjManager __objManager = new __ObjManager(null);
+    private HashMap<Integer, Obj> __hash_obj = new HashMap<>();
+    private ArrayList<Draw> __list_draw = new ArrayList<>();
     private int __objNum = 1;
 
 
@@ -30,7 +37,6 @@ public class __Engine {
     private Point mouse = new Point(0, 0);
     private Point __mouseClick = new Point(0, 0);
     private boolean __mouseDrag = false;
-
 
 
 
@@ -65,8 +71,27 @@ public class __Engine {
 
     //----------------------------------------D R A W------------------------------------------------
     public void __draw(Canvas canvas){
-        __objManager.__draw(canvas);
+        __list_draw.clear();
+        for(int id : __hash_obj.keySet()){
+            Obj obj = __hash_obj.get(id);
+            if(obj.__get_drawManager() != null){
+                for(Draw draw : obj.__get_drawManager().__get_list_draw()){
+                    __list_draw.add(draw);
+                }
+            }
+        }
+        Collections.sort(__list_draw, cmpDeep);
+        for(int i = 0; i<__list_draw.size(); i++){
+            __list_draw.get(i).__draw(canvas);
+        }
     }
+
+    private Comparator<Draw> cmpDeep = new Comparator<Draw>() {
+        @Override
+        public int compare(Draw draw1, Draw draw2) {
+            return draw1.__get_deep() - draw2.__get_deep();
+        }
+    };
     //----------------------------------------D R A W------------------------------------------------
 
     //----------------------------------------C L I C K------------------------------------------------
@@ -142,14 +167,20 @@ public class __Engine {
 
 
     //-----------------------------------O B J E C T-------------------------------------------------
-    public void __addObj(Obj obj){
+    public void __objCreateFinish(Obj obj){
         __objManager.__add(obj);
     }
 
-    public int __getObjNum(){
-        return __objNum++;
+    public void __objCreate(Obj obj){
+        __hash_obj.put(__objNum, obj);
+        obj.id = ++__objNum;
     }
     //-----------------------------------O B J E C T-------------------------------------------------
+
+
+    public __ObjManager __get_objManager() {
+        return __objManager;
+    }
 
     public Context __getContext() {
         return context;

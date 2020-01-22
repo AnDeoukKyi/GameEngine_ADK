@@ -3,7 +3,7 @@ package com.an.gameengine_adk.Engine.Structure;
 import android.graphics.Point;
 
 import com.an.gameengine_adk.Engine.Obj.Mask.Mask;
-import com.an.gameengine_adk.Engine.Obj.Obj;
+import com.an.gameengine_adk.Engine.Obj.Obj.Obj;
 
 import java.util.ArrayList;
 

@@ -2,7 +2,7 @@ package com.an.gameengine_adk.Engine.Map.Camera;
 
 import android.graphics.Point;
 
-import com.an.gameengine_adk.Engine.Obj.Obj;
+import com.an.gameengine_adk.Engine.Obj.Obj.Obj;
 import com.an.gameengine_adk.Engine.__Engine;
 
 public class Camera {

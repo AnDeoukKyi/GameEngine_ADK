@@ -4,7 +4,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 
 import com.an.gameengine_adk.Engine.Obj.Click.Click;
-import com.an.gameengine_adk.Engine.Obj.Obj;
+import com.an.gameengine_adk.Engine.Obj.Obj.Obj;
 import com.an.gameengine_adk.Engine.Structure.Circle;
 
 public class Mask {

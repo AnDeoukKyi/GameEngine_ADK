@@ -1,9 +1,9 @@
-package com.an.gameengine_adk.Engine;
+package com.an.gameengine_adk.Engine.Obj.Obj;
 
 import android.graphics.Canvas;
 import android.graphics.Point;
 
-import com.an.gameengine_adk.Engine.Obj.Obj;
+import com.an.gameengine_adk.Engine.Obj.Obj.Obj;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -88,18 +88,8 @@ public class __ObjManager {
     public void __add(Obj obj){
         __child.add(obj);
         obj.__set_parent(this);
-        __deepSort();
     }
 
-    public void __deepSort(){
-        Comparator<Obj> cmpDeep = new Comparator<Obj>() {
-            @Override
-            public int compare(Obj obj1, Obj obj2) {
-                return obj2.f_GetDeep() - obj1.f_GetDeep();
-            }
-        };
-        Collections.sort(__child, cmpDeep);
-    }
 
     //--------------------------------O J B E C T---------------------------------------------
     public void __remove(int num){

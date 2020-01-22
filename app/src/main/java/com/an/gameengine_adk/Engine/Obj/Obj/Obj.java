@@ -1,4 +1,4 @@
-package com.an.gameengine_adk.Engine.Obj;
+package com.an.gameengine_adk.Engine.Obj.Obj;
 
 
 
@@ -6,18 +6,16 @@ package com.an.gameengine_adk.Engine.Obj;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 
 import com.an.gameengine_adk.Engine.Obj.Draw.Sprite;
 import com.an.gameengine_adk.Engine.Obj.Draw.SpriteGroup;
-import com.an.gameengine_adk.Engine.Obj.Draw.__Draw;
+import com.an.gameengine_adk.Engine.Obj.Draw.Draw;
 import com.an.gameengine_adk.Engine.Obj.Draw.__DrawManager;
 import com.an.gameengine_adk.Engine.Obj.Mask.Mask;
 import com.an.gameengine_adk.Engine.Obj.Mask.__MaskManager;
 import com.an.gameengine_adk.Engine.Resource.__Resource;
 import com.an.gameengine_adk.Engine.Structure.Circle;
 import com.an.gameengine_adk.Engine.__Engine;
-import com.an.gameengine_adk.Engine.__ObjManager;
 
 import java.util.ArrayList;
 
@@ -29,7 +27,6 @@ public class Obj {
     public int HEIGHT;
     public Point pos = new Point(0, 0);
     public Point posR = new Point(0, 0);
-    private int __deep = 0;
     //----------------------------------------
 
     //----------------------------------------
@@ -38,7 +35,6 @@ public class Obj {
     protected __ObjManager __child;
     public Obj parent;
     private __ObjManager __parent;
-    protected boolean __root = false;
     protected __DrawManager __drawManager;
     protected __Resource resource;
     //----------------------------------------
@@ -55,9 +51,8 @@ public class Obj {
         Point p = __engine.__getDeviceSize();
         WIDTH = p.x;
         HEIGHT = p.y;
-        __getObjNum();
+        __engine.__objCreate(this);
         Start();
-        __addObj();
         Run();
     }
 
@@ -114,14 +109,14 @@ public class Obj {
 
 
     //-------------------------------------M A S K----------------------------------------------
-    protected Mask f_Mask(Rect rect){
+    protected Mask Mask(Rect rect){
         if(__maskManager == null)
             __maskManager = new __MaskManager();
         Mask mask = new Mask(rect);
         __maskManager.__add(mask);
         return mask;
     }
-    protected Mask f_Mask(Circle circle){
+    protected Mask Mask(Circle circle){
         if(__maskManager == null)
             __maskManager = new __MaskManager();
         Mask mask = new Mask(circle);
@@ -132,29 +127,30 @@ public class Obj {
 
 
     //-------------------------------------S P R I T E----------------------------------------------
-    public Sprite f_GetSprite(String tag){
+    public Sprite GetSprite(String tag){
         return resource.__getSprite(tag);
     }
 
-    protected __Draw f_DrawSprite(String name, SpriteGroup sg, double speed, int index, Rect rect){
+
+    protected Draw DrawSprite(String name, int deep, SpriteGroup sg, double speed, int index, Rect rect){
         if (__drawManager == null)
             __drawManager = new __DrawManager();
 
-        __Draw draw = new __Draw(name, this);
+        Draw draw = new Draw(this, name, deep);
         draw.__setSpriteGroup(sg, speed, index);
         draw.__setRect(rect);
         __drawManager.__add(draw);
         return draw;
     }
 
-    protected __Draw f_DrawSprite(String name, String path, Rect rect){
+    protected Draw DrawSprite(String name, int deep, String path, Rect rect){
         String _path = resource.__checkFile(path);//return String
         if (_path == null)
             return null;
         if (__drawManager == null)
             __drawManager = new __DrawManager();
 
-        __Draw draw = new __Draw(name, this);
+        Draw draw = new Draw(this, name, deep);
         draw.__setSprite(path);
         draw.__setRect(rect);
 
@@ -162,17 +158,18 @@ public class Obj {
         return draw;
     }
 
-    protected __Draw f_DrawSprite(String name, Sprite sprite, Rect rect){
-            if (__drawManager == null)
-                __drawManager = new __DrawManager();
+    protected Draw DrawSprite(String name, int deep, Sprite sprite, Rect rect){
+        if (__drawManager == null)
+            __drawManager = new __DrawManager();
 
-        __Draw draw = new __Draw(name, this);
+        Draw draw = new Draw(this, name, deep);
         draw.__setSprite(sprite);
         draw.__setRect(rect);
 
         __drawManager.__add(draw);
         return draw;
     }
+
     //-------------------------------------S P R I T E----------------------------------------------
 
 
@@ -199,55 +196,37 @@ public class Obj {
     }
 
     public void __setRootPos(){
-        posR = new Point(__parent.__getRootPos());
-        posR.x += pos.x;
-        posR.y += pos.y;
+        posR.x = 0;
+        posR.y = 0;
+        Point rootP = __parent.__getRootPos();
+        posR.x += pos.x + rootP.x;
+        posR.y += pos.y + rootP.y;
         if(__child != null)
             __child.__setRootPos();
     }
 
-
-
+    public __DrawManager __get_drawManager() {
+        return __drawManager;
+    }
     //-----------------------------------------D R A W------------------------------------------------
 
 
 
 
 
-    protected void __getObjNum(){
-        id = __engine.__getObjNum();
-    }
+
 
     protected void Start(){
-        __root = true;
-        Log.e("Object", "최상위Object가 생성되었습니다." + this.getClass().toString());
     }
 
     //-------------------------------------------------O B J E C T--------------------------------------
-    protected void __addObj(){
-        if(__root)
-            __engine.__addObj(this);
-    }
 
-    protected void f_SetDeep(int deep){
-        __deep = deep;
-        __parent.__deepSort();
-    }
-
-    public int f_GetDeep(){
-        return __deep;
-    }
-
-    public Obj f_GetChild(int id){
-        return __child.__get_ID(id);
-    }
-
-    public int f_SetChild(Obj childObj){
+    public Obj Child(Obj childObj){
         childObj.parent = this;
         if (__child == null)
             __child = new __ObjManager(this);
         __child.__add(childObj);
-        return childObj.id;
+        return childObj;
     }
     //-------------------------------------------------O B J E C T--------------------------------------
 
